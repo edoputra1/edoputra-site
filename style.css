@@ -51,6 +51,7 @@ body {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   text-orientation: mixed;
+  white-space: nowrap;
 }
 
 .content-wrapper {
@@ -92,6 +93,13 @@ body {
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 2.5rem;
+}
+
+.text-footer {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .text-section {
@@ -289,6 +297,12 @@ body {
 
 .animated-btn:hover .chevron-hover {
   transform: translateX(0);
+}
+
+.footer-logo {
+  width: 48px;
+  height: auto;
+  margin-bottom: 4rem;
 }
 
 /* Mobile Styles */

@@ -15,6 +15,55 @@ document.addEventListener('DOMContentLoaded', () => {
   updateClock();
   setInterval(updateClock, 100);
 
+  const words = [
+    'EDO SEPTIYAN PUTRA ',
+    'PRODUCT DESIGNER ',
+    'AI-FIRST ',
+    '(SEASONED) HELLDIVER '
+  ];
+
+  const typeTarget = document.getElementById('typewriter');
+  const cursor = '—';
+
+  if (typeTarget) {
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const typingSpeed = 90;
+    const deletingSpeed = 20;
+    const holdAfterType = 3000;
+
+    function typeLoop() {
+      const currentWord = words[wordIndex];
+
+      if (!isDeleting) {
+        charIndex++;
+      } else {
+        charIndex--;
+      }
+
+      typeTarget.textContent =
+        currentWord.slice(0, charIndex) + cursor;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        setTimeout(() => (isDeleting = true), holdAfterType);
+      }
+
+      if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+      }
+
+      setTimeout(
+        typeLoop,
+        isDeleting ? deletingSpeed : typingSpeed
+      );
+    }
+
+    typeLoop();
+  }
+
   if (window.innerWidth > 700) {
     window.addEventListener('wheel', (e) => {
       if (e.deltaY !== 0) {
