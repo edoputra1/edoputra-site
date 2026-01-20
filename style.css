@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap');
+
+:root {
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --color-blue: #0026FF;
+  --color-white: #FFFFFF;
+  --color-black: #010101;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-weight: 200;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100vh;
+  padding: 10vh 8vw;
+}
+
+.sidebar-fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 100vh;
+  background: var(--color-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vh 24px;
+  z-index: 1000;
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  color: var(--color-white);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.sidebar-clock,
+.sidebar-name {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-orientation: mixed;
+}
+
+.content-wrapper {
+  height: 80vh;
+  column-width: 400px;
+  column-count: 3;
+  column-gap: 160px;
+  column-rule: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.force-column {
+  break-before: column;
+}
+
+.text-large {
+  font-size: 5rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 6rem;
+  break-inside: avoid;
+}
+
+.text-medium {
+  font-size: 3rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 4rem;
+  break-inside: avoid;
+}
+
+.text-body {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.text-small {
+  font-size: 1.325rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2.5rem;
+}
+
+.text-section {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+  break-inside: avoid;
+  font-family: var(--font-mono);
+  color: yellow;
+}
+
+.text-body ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.text-body ul li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-body ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0.5rem;
+  color: var(--color-blue);
+}
+
+.section-break {
+  margin-bottom: 4rem;
+  break-inside: avoid;
+}
+
+.pattern-frame {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: 4rem 0;
+}
+
+.frame-small {
+  height: 3rem;
+}
+
+.frame-large {
+  height: 10rem;
+}
+
+.diagonal-pattern {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 2rem 0;
+}
+
+.marquee {
+  position: relative;
+  width: 100%;
+  margin: 3rem 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee-scroll 25s linear infinite;
+}
+
+.marquee span {
+  font-size: 3rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.button-wrap {
+  break-inside: avoid;
+}
+
+.animated-btn {
+  background: transparent;
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+  font-size: 2.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.animated-btn .frame {
+  position: relative;
+  height: 1.4em;
+  line-height: 1em;
+  display: inline-block;
+  overflow: hidden;
+  padding-right: 0.2em;
+  -webkit-mask-image: linear-gradient(to bottom, 
+    transparent 0%, 
+    black 10%, 
+    black 90%, 
+    transparent 100%);
+  mask-image: linear-gradient(to bottom, 
+    transparent 0%, 
+    black 10%, 
+    black 90%, 
+    transparent 100%);
+}
+
+.animated-btn .sizer {
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.animated-btn .text {
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  width: 100%; /* Add this - forces text to take full width */
+  white-space: nowrap;
+}
+
+.animated-btn .text span {
+  display: inline-block;
+  transform: translateY(0);
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+  transition-delay: calc(var(--i) * 0.02s);
+}
+
+.animated-btn .hover span {
+  transform: translateY(1.2em);
+}
+
+.animated-btn:hover .original span {
+  transform: translateY(-1.2em);
+}
+
+.animated-btn:hover .hover span {
+  transform: translateY(0);
+}
+
+.animated-btn .chevron-frame {
+  position: relative;
+  overflow: hidden;
+  color: var(--color-blue);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animated-btn .chevron-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+}
+
+.animated-btn .chevron-original {
+  transform: translateX(0);
+}
+
+.animated-btn .chevron-hover {
+  transform: translateX(-50px);
+}
+
+.animated-btn:hover .chevron-original {
+  transform: translateX(50px);
+}
+
+.animated-btn:hover .chevron-hover {
+  transform: translateX(0);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+    padding: 5vh 5vw;
+  }
+
+  .content-wrapper {
+    height: auto;
+    column-width: auto;
+    column-count: 1;
+    column-gap: 0;
+    column-rule: none;
+  }
+
+  .force-column {
+    break-before: auto;
+  }
+
+  .text-large {
+    font-size: 2.5rem;
+  }
+
+  .text-medium {
+    font-size: 2rem;
+  }
+
+  .text-body {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+  }
+
+  .text-small {
+    font-size: 1rem;
+  }
+
+  .marquee span {
+    font-size: 2rem;
+  }
+
+  .animated-btn {
+    font-size: 2rem;
+  }
+
+  .animated-btn .chevron-frame {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* Hide Sidebar on Mobile */
+@media (max-width: 800px) {
+  .sidebar-fixed {
+    display: none;
+  }
+}
