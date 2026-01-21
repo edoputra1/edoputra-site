@@ -65,43 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLoop();
   }
 
-
-  const originalTitle = document.title; // save original
-  const messages = [
-    "Wait, don't go!",
-    "I'll be here — waiting",
-    "Browsing, eh?",
-    "Big Brother is watching"
-  ];
-  let msgIndex = 0;
-  let blinkInterval;
-
-  function blinkTitleOnce(tempTitle, duration = 800) {
-    let visible = true;
-    blinkInterval = setInterval(() => {
-      document.title = visible ? tempTitle : " ";
-      visible = !visible;
-    }, 200);
-
-    // stop blinking after duration
-    setTimeout(() => {
-      clearInterval(blinkInterval);
-      document.title = originalTitle;
-    }, duration);
-  }
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      // user switched tab → change title to funny message
-      document.title = messages[msgIndex % messages.length];
-      msgIndex++;
-    } else {
-      // user returned → optional blink effect
-      blinkTitleOnce(originalTitle);
-    }
-  });
-
-
   if (window.innerWidth > 700) {
     window.addEventListener('wheel', (e) => {
       if (e.deltaY !== 0) {
@@ -138,4 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
       </span>
     `;
   });
+
+  setTimeout(() => {
+    const originalTitle = document.title;
+    const messages = [
+      "Wait, don't go!",
+      "I'll be here — waiting",
+      "Browsing, eh?",
+      "Big Brother is watching"
+    ];
+    let msgIndex = 0;
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        // Show the next message in the array
+        document.title = messages[msgIndex % messages.length];
+        msgIndex++;
+      } else {
+        // Restore the original title when user returns
+        document.title = originalTitle;
+      }
+    });
+  }, 0);  
 });
