@@ -7,6 +7,7 @@
   --color-blue: #0026FF;
   --color-white: #FFFFFF;
   --color-black: #010101;
+  --color-yellow: #F7F771;
 }
 
 * {
@@ -77,6 +78,12 @@ body {
   height: 0.5em;
   fill: var(--color-blue);
   transform: translateY(0.1em);
+  animation: typewriter-blink 2s steps(1, start) infinite;
+}
+
+@keyframes typewriter-blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
 }
 
 .text-large {
@@ -100,6 +107,12 @@ body {
   margin-bottom: 2.5rem;
 }
 
+.text-body.emphasis {
+  font-size: 2.25rem;
+  line-height: inherit;
+  margin-bottom: inherit;
+}
+
 .text-small {
   font-size: 1.325rem;
   line-height: 1.75;
@@ -121,7 +134,7 @@ body {
   margin-bottom: 2rem;
   break-inside: avoid;
   font-family: var(--font-mono);
-  color: yellow;
+  color: var(--color-yellow);
 }
 
 .text-body ul {
@@ -316,7 +329,7 @@ body {
 .footer-logo {
   width: 48px;
   height: auto;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 /* Mobile Styles */
