@@ -7,13 +7,18 @@
   --color-blue: #0026FF;
   --color-white: #FFFFFF;
   --color-black: #010101;
-  --color-yellow: #00D4FF;
+  --color-cyan: #00D4FF;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font: inherit;
 }
 
 body {
@@ -31,20 +36,29 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  width: 16px;
+  width: 64px;
   height: 100vh;
   background: var(--color-blue);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 2vh 24px;
+  padding: 2vh 0;
   z-index: 1000;
   font-family: var(--font-mono);
   font-size: 0.825rem;
   color: var(--color-white);
   letter-spacing: 0.05em;
   line-height: 1;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
+  .sidebar-fixed {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .sidebar-clock,
@@ -65,25 +79,6 @@ body {
 
 .force-column {
   break-before: column;
-}
-
-.hero-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2em;
-}
-
-.hero-mark .hero-dot {
-  width: 0.5em;
-  height: 0.5em;
-  fill: var(--color-blue);
-  transform: translateY(0.1em);
-  animation: typewriter-blink 2s steps(1, start) infinite;
-}
-
-@keyframes typewriter-blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
 }
 
 .text-large {
@@ -116,7 +111,7 @@ body {
 .text-small {
   font-size: 1.325rem;
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 2.5rem;
 }
 
@@ -134,7 +129,7 @@ body {
   margin-bottom: 2rem;
   break-inside: avoid;
   font-family: var(--font-mono);
-  color: var(--color-yellow);
+  color: var(--color-cyan);
 }
 
 .text-body ul {
@@ -157,9 +152,61 @@ body {
   color: var(--color-blue);
 }
 
+li a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.text-tag {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  break-inside: avoid;
+}
+
+.text-tag--blue {
+  background: rgba(0, 47, 255, 0.5);
+}
+
 .section-break {
   margin-bottom: 4rem;
   break-inside: avoid;
+}
+
+.hero-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.hero-mark .hero-dot {
+  width: 0.5em;
+  height: 0.5em;
+  fill: var(--color-blue);
+  transform: translateY(0.1em);
+  animation: typewriter-blink 2s steps(1, start) infinite;
+}
+
+@keyframes typewriter-blink {
+
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
 }
 
 .pattern-frame {
@@ -180,15 +227,257 @@ body {
 .diagonal-pattern {
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12) 0px,
-    rgba(255, 255, 255, 0.12) 2px,
-    transparent 1px,
-    transparent 14px
+  background: repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.12) 0px,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 1px,
+      transparent 14px);
+}
+
+/* CTA */
+.cta-wrap {
+  position: relative;
+  width: calc(100% - 2rem);
+  break-inside: avoid;
+}
+
+.cta-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem 2rem;
+  background: var(--color-blue);
+  color: var(--color-white);
+  border: none;
+
+  font-size: 1.6rem;
+  font-family: var(--font-mono);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s ease;
+}
+
+.cta-button:hover {
+  background: var(--color-black);
+  outline: 4px solid var(--color-blue);
+  outline-offset: 1px;
+}
+
+.cta-text {
+  display: flex;
+  align-items: center;
+}
+
+.cta-arrow svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  transform: translateY(0.1em);
+}
+
+.cta-wrap::after {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  right: -2rem;
+  bottom: -2rem;
+
+  background: repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.12) 0px,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 2px,
+      transparent 14px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cta-animated .frame {
+  position: relative;
+  height: 1.2em;
+  line-height: 1.2em;
+  display: inline-block;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
+}
+
+.cta-animated .sizer {
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.cta-animated .text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.cta-animated .text span {
+  display: inline-block;
+  transform: translateY(0);
+  transition: transform 0.25s cubic-bezier(.4, 0, .2, 1);
+  transition-delay: calc(var(--i) * 0.02s);
+}
+
+.cta-animated .hover span {
+  transform: translateY(1.2em);
+}
+
+.cta-animated:hover .original span {
+  transform: translateY(-1.2em);
+}
+
+.cta-animated:hover .hover span {
+  transform: translateY(0);
+}
+
+.cta-text {
+  transform: none;
+}
+
+.cta-arrow>svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* NAV */
+.button-wrap {
+  position: relative;
+  break-inside: avoid;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+
+  background: transparent;
+  color: var(--color-white);
+  font-size: 2.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-animated .frame {
+  position: relative;
+  height: 1.25em;
+  line-height: 1.25em;
+  display: inline-block;
+  overflow: hidden;
+  padding-right: 0.2em;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
   );
 }
 
+.nav-animated .sizer {
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.nav-animated .text {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  white-space: nowrap;
+}
+
+.nav-animated .text span {
+  display: inline-block;
+  transform: translateY(0);
+  transition: transform 0.20s cubic-bezier(.4, 0, .2, 1);
+  transition-delay: calc(var(--i) * 0.02s);
+}
+
+.nav-animated .hover span {
+  transform: translateY(1.25em);
+}
+
+.nav-animated:hover .original span {
+  transform: translateY(-1.25em);
+}
+
+.nav-animated:hover .hover span {
+  transform: translateY(0);
+}
+
+.nav-animated .nav-chevron {
+  position: relative;
+  align-self: center;
+  overflow: hidden;
+  color: var(--color-blue);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-animated .nav-chevron svg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.45s cubic-bezier(.4, 0, .2, 1);
+}
+
+.nav-animated .chevron-original svg {
+  transform: translateX(0);
+}
+
+.nav-animated .chevron-hover svg {
+  transform: translateX(-50px);
+}
+
+.nav-animated:hover .chevron-original svg {
+  transform: translateX(50px);
+}
+
+.nav-animated:hover .chevron-hover svg {
+  transform: translateX(0);
+}
+
+/* THE REST */
 .divider {
   width: 100%;
   height: 1px;
@@ -220,110 +509,13 @@ body {
 }
 
 @keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+  from {
+    transform: translateX(0);
+  }
 
-.button-wrap {
-  break-inside: avoid;
-}
-
-.animated-btn {
-  background: transparent;
-  color: var(--color-white);
-  border: none;
-  cursor: pointer;
-  font-size: 2.5rem;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.animated-btn .frame {
-  position: relative;
-  height: 1.4em;
-  line-height: 1em;
-  display: inline-block;
-  overflow: hidden;
-  padding-right: 0.2em;
-  -webkit-mask-image: linear-gradient(to bottom, 
-    transparent 0%, 
-    black 10%, 
-    black 90%, 
-    transparent 100%);
-  mask-image: linear-gradient(to bottom, 
-    transparent 0%, 
-    black 10%, 
-    black 90%, 
-    transparent 100%);
-}
-
-.animated-btn .sizer {
-  visibility: hidden;
-  white-space: nowrap;
-}
-
-.animated-btn .text {
-  position: absolute;
-  left: 0;
-  top: 0.15em;
-  width: 100%; /* Add this - forces text to take full width */
-  white-space: nowrap;
-}
-
-.animated-btn .text span {
-  display: inline-block;
-  transform: translateY(0);
-  transition: transform 0.25s cubic-bezier(.4,0,.2,1);
-  transition-delay: calc(var(--i) * 0.02s);
-}
-
-.animated-btn .hover span {
-  transform: translateY(1.2em);
-}
-
-.animated-btn:hover .original span {
-  transform: translateY(-1.2em);
-}
-
-.animated-btn:hover .hover span {
-  transform: translateY(0);
-}
-
-.animated-btn .chevron-frame {
-  position: relative;
-  overflow: hidden;
-  color: var(--color-blue);
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.animated-btn .chevron-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: transform 0.45s cubic-bezier(.4,0,.2,1);
-}
-
-.animated-btn .chevron-original {
-  transform: translateX(0);
-}
-
-.animated-btn .chevron-hover {
-  transform: translateX(-50px);
-}
-
-.animated-btn:hover .chevron-original {
-  transform: translateX(50px);
-}
-
-.animated-btn:hover .chevron-hover {
-  transform: translateX(0);
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .footer-logo {
@@ -374,11 +566,11 @@ body {
     font-size: 2rem;
   }
 
-  .animated-btn {
+  .nav-link {
     font-size: 2rem;
   }
 
-  .animated-btn .chevron-frame {
+  .nav-animated .nav-chevron {
     width: 2rem;
     height: 2rem;
   }
