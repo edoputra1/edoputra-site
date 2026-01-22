@@ -154,7 +154,23 @@ body {
 
 li a {
   color: inherit;
-  text-decoration: underline;
+  text-decoration: none;
+  position: relative;
+}
+
+li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.25rem;
+  width: 30%;
+  height: 0.25rem;
+  background: var(--color-blue);
+  z-index: -1;
+  transition: width 0.25s ease;
+}
+li a:hover::after {
+  width: 110%;
 }
 
 .text-tag {
@@ -174,6 +190,7 @@ li a {
 
 .text-tag--blue {
   background: rgba(0, 47, 255, 0.5);
+  margin-bottom: 0.4rem;
 }
 
 .section-break {
@@ -196,13 +213,11 @@ li a {
 }
 
 @keyframes typewriter-blink {
-
   0%,
   50%,
   100% {
     opacity: 1;
   }
-
   25%,
   75% {
     opacity: 0;
@@ -260,7 +275,6 @@ li a {
   z-index: 2;
   transition: background 0.2s ease;
 }
-
 .cta-button:hover {
   background: var(--color-black);
   outline: 4px solid var(--color-blue);
@@ -490,14 +504,15 @@ li a {
   width: 100%;
   margin: 3rem 0;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
 }
 
 .marquee-track {
   display: flex;
+  align-items: center;
   gap: 3rem;
   width: max-content;
-  animation: marquee-scroll 25s linear infinite;
+  animation: marquee-scroll 20s linear infinite;
 }
 
 .marquee span {
@@ -505,14 +520,24 @@ li a {
   line-height: 1.25;
   letter-spacing: -0.01em;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-white);
+}
+
+.marquee .sep {
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-blue);
+
+  -webkit-mask: url("/assets/img/separator.svg") center / contain no-repeat;
+  mask: url("/assets/img/separator.svg") center / contain no-repeat;
+
+  flex-shrink: 0;
 }
 
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);
   }
-
   to {
     transform: translateX(-50%);
   }
