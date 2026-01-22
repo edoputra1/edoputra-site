@@ -199,8 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!container) return;
 
       const img = document.createElement('img');
-      img.width = 128;
-      img.height = 128;
       img.alt = '';
       img.src = `assets/svgs/${getRandomSVG()}`;
       container.appendChild(img);
@@ -214,8 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const slotA = document.getElementById('slotA');
     if (slotA) {
       const img = document.createElement('img');
-      img.width = 128;
-      img.height = 128;
+      img.width = 80;
+      img.height = 80;
       img.alt = '';
       img.src = `assets/svgs/${getRandomSVG()}`;
       slotA.appendChild(img);
@@ -242,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const slotB = document.getElementById('slotB');
     if (slotB) {
       const img = document.createElement('img');
-      img.width = 128;
-      img.height = 128;
+      img.width = 80;
+      img.height = 80;
       img.alt = '';
       img.src = `assets/svgs/${getRandomSVG()}`;
       slotB.appendChild(img);

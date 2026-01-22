@@ -622,15 +622,15 @@ li a:hover::after {
 
 .svg-grid {
   display: grid;
-  grid-template-columns: repeat(2, 128px);
-  grid-template-rows: repeat(3, 128px);
+  grid-template-columns: repeat(2, 80px);
+  grid-template-rows: repeat(3, 80px);
   gap: 16px;
   margin-bottom: 4rem;
 }
 
-.svg-slot {
-  width: 128px;
-  height: 128px;
+.svg-slot img {
+  width: 80px;
+  height: 80px;
 }
 
 .slotGrid {
