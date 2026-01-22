@@ -153,24 +153,27 @@ body {
 }
 
 li a {
-  color: inherit;
+  color: var(--color-cyan);
   text-decoration: none;
   position: relative;
+  transition: color 0.25s ease;
 }
-
+li a:hover {
+  color: var(--color-white);
+}
 li a::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -0.25rem;
-  width: 30%;
+  bottom: 0;
+  width: 0;
   height: 0.25rem;
   background: var(--color-blue);
   z-index: -1;
   transition: width 0.25s ease;
 }
 li a:hover::after {
-  width: 110%;
+  width: 100%;
 }
 
 .text-tag {
@@ -191,6 +194,34 @@ li a:hover::after {
 .text-tag--blue {
   background: rgba(0, 47, 255, 0.5);
   margin-bottom: 0.4rem;
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.12) 0px,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 1px,
+      transparent 6px);
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+.icon-wrapper .icon-svg {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.section-block {
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  break-inside: avoid;
 }
 
 .section-break {
@@ -531,6 +562,38 @@ li a:hover::after {
   -webkit-mask: url("/assets/img/separator.svg") center / contain no-repeat;
   mask: url("/assets/img/separator.svg") center / contain no-repeat;
 
+  flex-shrink: 0;
+}
+
+.summary-container {
+  overflow-x: hidden;
+}
+.text-summary-area {
+  font-size: 0.825rem;
+  font-family: var(--font-mono);
+  color: var(--color-white);
+  background: repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.12) 0px,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 1px,
+      transparent 14px);
+  padding: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  white-space: normal;
+}
+.text-summary-area .sep {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: var(--color-blue);
+  -webkit-mask: url("/assets/img/arrow-right.svg") center / contain no-repeat;
+  mask: url("/assets/img/arrow-right.svg") center / contain no-repeat;
   flex-shrink: 0;
 }
 
