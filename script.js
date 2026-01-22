@@ -1,19 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-  function updateClock() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    const milliseconds = String(Math.floor(now.getMilliseconds() / 100));
+  const isDesktop = () => window.innerWidth > 700;
 
-    const clockElement = document.getElementById('clock');
-    if (clockElement) {
-      clockElement.textContent = `— H${hours} M${minutes} S${seconds}.${milliseconds}`;
+
+  if (isDesktop()) {
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const milliseconds = String(Math.floor(now.getMilliseconds() / 100));
+
+      const clockElement = document.getElementById('clock');
+      if (clockElement) {
+        requestAnimationFrame(() => {
+          clockElement.textContent = `— H${hours} M${minutes} S${seconds}.${milliseconds}`;
+        });
+      }
     }
-  }
 
-  updateClock();
-  setInterval(updateClock, 100);
+    updateClock();
+    setInterval(updateClock, 100);
+  }
 
 
   const words = [
@@ -26,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const typeTarget = document.getElementById('typewriter');
   const cursor = '—';
 
-  if (typeTarget) {
+  if (typeTarget && isDesktop()) {
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -38,14 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function typeLoop() {
       const currentWord = words[wordIndex];
 
-      if (!isDeleting) {
-        charIndex++;
-      } else {
-        charIndex--;
-      }
+      if (!isDeleting) charIndex++;
+      else charIndex--;
 
-      typeTarget.textContent =
-        currentWord.slice(0, charIndex) + cursor;
+      requestAnimationFrame(() => {
+        typeTarget.textContent = currentWord.slice(0, charIndex) + cursor;
+      });
 
       if (!isDeleting && charIndex === currentWord.length) {
         setTimeout(() => (isDeleting = true), holdAfterType);
@@ -65,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLoop();
   }
 
-  if (window.innerWidth > 700) {
+
+  if (isDesktop()) {
     window.addEventListener('wheel', (e) => {
       if (e.deltaY !== 0) {
         e.preventDefault();
@@ -76,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: false });
   }
+
 
   document.querySelectorAll('.cta-animated').forEach(cta => {
     const textEl = cta.querySelector('.cta-text');
@@ -90,32 +97,35 @@ document.addEventListener('DOMContentLoaded', () => {
       .join('');
 
     const arrowSVG = `
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M7 17L17 7M17 7H7M17 7V17"
-        stroke="white"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  `;
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7 17L17 7M17 7H7M17 7V17"
+          stroke="white"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    `;
 
     textEl.innerHTML = `
-    <span class="frame">
-      <span class="sizer">${text}</span>
-      <span class="text original">${letters}</span>
-      <span class="text hover">${letters}</span>
-    </span>
-  `;
+      <span class="frame">
+        <span class="sizer">${text}</span>
+        <span class="text original">${letters}</span>
+        <span class="text hover">${letters}</span>
+      </span>
+    `;
 
     const arrow = document.createElement('span');
     arrow.className = 'cta-arrow';
     arrow.innerHTML = arrowSVG;
-
     cta.appendChild(arrow);
+
+    if (isDesktop()) {
+    }
   });
+
 
   document.querySelectorAll('.nav-animated').forEach(link => {
     const text = link.textContent.trim();
@@ -125,32 +135,36 @@ document.addEventListener('DOMContentLoaded', () => {
     ).join('');
 
     const chevronSVG = `
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M9 18L15 12L9 6"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  `;
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9 18L15 12L9 6"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    `;
 
     link.innerHTML = `
-    <span class="frame">
-      <span class="sizer">${text}</span>
-      <span class="text original">${letters}</span>
-      <span class="text hover">${letters}</span>
-    </span>
+      <span class="frame">
+        <span class="sizer">${text}</span>
+        <span class="text original">${letters}</span>
+        <span class="text hover">${letters}</span>
+      </span>
 
-    <span class="nav-chevron">
-      <span class="chevron-original">${chevronSVG}</span>
-      <span class="chevron-hover">${chevronSVG}</span>
-    </span>
-  `;
+      <span class="nav-chevron">
+        <span class="chevron-original">${chevronSVG}</span>
+        <span class="chevron-hover">${chevronSVG}</span>
+      </span>
+    `;
+
+    if (isDesktop()) {
+    }
   });
 
+  
   setTimeout(() => {
     const originalTitle = document.title;
     const messages = [
@@ -163,11 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
-        // Show the next message in the array
         document.title = messages[msgIndex % messages.length];
         msgIndex++;
       } else {
-        // Restore the original title when user returns
         document.title = originalTitle;
       }
     });
