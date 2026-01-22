@@ -572,11 +572,16 @@ li a:hover::after {
   font-size: 0.825rem;
   font-family: var(--font-mono);
   color: var(--color-white);
-  background: repeating-linear-gradient(135deg,
-      rgba(255, 255, 255, 0.12) 0px,
-      rgba(255, 255, 255, 0.12) 2px,
-      transparent 1px,
-      transparent 14px);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px);
+  
+  background-size: 20px 20px; /* optional: control speed & spacing */
+  animation: slide-diagonal 4s linear infinite;
+
   padding: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -587,6 +592,15 @@ li a:hover::after {
   gap: 0.5rem;
   white-space: normal;
 }
+@keyframes slide-diagonal {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
 .text-summary-area .sep {
   display: inline-block;
   width: 20px;
@@ -606,10 +620,35 @@ li a:hover::after {
   }
 }
 
-.footer-logo {
-  width: 48px;
-  height: auto;
-  margin-bottom: 2rem;
+.svg-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 128px);
+  grid-template-rows: repeat(3, 128px);
+  gap: 16px;
+  margin-bottom: 4rem;
+}
+
+.svg-slot {
+  width: 128px;
+  height: 128px;
+}
+
+.slotGrid {
+  /* diagonal moving pattern for slotE */
+  background: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0px,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 1px,
+      transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+}
+
+@keyframes slide-diagonal {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
 }
 
 /* Mobile Styles */
