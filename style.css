@@ -870,6 +870,39 @@ li a:hover::after {
     width: 2rem;
     height: 2rem;
   }
+
+  .modal {
+    max-width: 95% !important;
+    width: 95% !important;
+  }
+
+  .modal-content {
+    padding: 1.5rem !important;
+    gap: 1rem !important;
+  }
+
+  .modal-title {
+    font-size: 0.7rem !important;
+  }
+
+  .modal-text {
+    font-size: 0.9rem !important;
+  }
+
+  .modal-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .modal-cancel {
+    font-size: 0.7rem !important;
+    text-align: center !important;
+  }
+
+  .modal .text-tag {
+    font-size: 0.65rem !important;
+    padding: 0.25rem 0.4rem !important;
 }
 
 /* Hide Sidebar on Mobile */
