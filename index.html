@@ -10,12 +10,10 @@
   <meta name="description"
     content="Product designer focused on UX, design systems, and close collaboration with engineering teams.">
 
-  <!-- Favicon -->
   <link rel="icon" href="/assets/favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png">
   <link rel="apple-touch-icon" href="/assets/favicons/apple-touch-icon.png">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Edo Putra — Product Designer">
   <meta property="og:description"
     content="Designing thoughtful digital products through UX strategy and high-fidelity execution.">
@@ -23,7 +21,6 @@
   <meta property="og:url" content="https://edoputra.com">
   <meta property="og:image" content="https://edoputra.com/assets/og/preview.jpg">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Edo Putra — Product Designer">
   <meta name="twitter:description" content="Crafting scalable design systems and intuitive user experiences.">
@@ -31,6 +28,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <script src="assets/js/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="assets/css/jquery.modal.min.css"/>
 
   <link rel="preload" href="style.css" as="style">
   <link rel="stylesheet" href="style.css">
@@ -66,22 +67,42 @@
       <div class="divider"></div>
       <div class="marquee">
         <div class="marquee-track">
-          <span>Paynet</span><span class="sep"></span>
-          <span>Mobily</span><span class="sep"></span>
-          <span>Domino's Pizza</span><span class="sep"></span>
-          <span>Tiket.com</span><span class="sep"></span>
-          <span>Shell</span><span class="sep"></span>
-          <span>Air Selangor</span><span class="sep"></span>
-          <span>Overgear</span><span class="sep"></span>
-          <span>Karmaloop</span><span class="sep"></span>
-          <span>Paynet</span><span class="sep"></span>
-          <span>Mobily</span><span class="sep"></span>
-          <span>Domino's Pizza</span><span class="sep"></span>
-          <span>Tiket.com</span><span class="sep"></span>
-          <span>Shell</span><span class="sep"></span>
-          <span>Air Selangor</span><span class="sep"></span>
-          <span>Overgear</span><span class="sep"></span>
-          <span>Karmaloop</span><span class="sep"></span>
+          <div class="client"><span class="client-name">Paynet</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Mobily</span><span class="client-region">[KSA]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Domino's Pizza</span><span class="client-region">[SGP]</span>
+          </div><span class="sep"></span>
+          <div class="client"><span class="client-name">Tiket.com</span><span class="client-region">[IDN]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Shell</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Air Selangor</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Overgear</span><span class="client-region">[CYP]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Karmaloop</span><span class="client-region">[USA]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">CIMB Bank</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Paynet</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Mobily</span><span class="client-region">[KSA]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Domino's Pizza</span><span class="client-region">[SGP]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Tiket.com</span><span class="client-region">[IDN]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Shell</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Air Selangor</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Overgear</span><span class="client-region">[CYP]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">Karmaloop</span><span class="client-region">[USA]</span></div>
+          <span class="sep"></span>
+          <div class="client"><span class="client-name">CIMB Bank</span><span class="client-region">[MYS]</span></div>
+          <span class="sep"></span>
         </div>
       </div>
       <div class="divider"></div>
@@ -89,7 +110,13 @@
 
     <div class="section-break force-column">
       <div class="button-wrap">
-        <a href="https://google.com" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">Resume (Soon)</a>
+        <a
+  href="#"
+  class="nav-link nav-animated"
+  id="resume-trigger"
+>
+  Resume
+</a>
         <div class="divider"></div>
         <a href="https://google.com" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">Portfolio (Soon)</a>
         <div class="divider"></div>
@@ -184,12 +211,33 @@
         <div class="svg-slot" id="slotB"></div>
         <div class="svg-slot" id="slotC"></div>
       </div>
+      
       <footer class="text-footer">2026<br>Crafted by Edo Putra<br>Geist + Geist Mono</footer>
       <div class="divider"></div>
     </div>
   </main>
 
-  <script src="script.js" defer></script>
+  <div id="resume-modal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title">To Talent Scouts & Recruiters</h3>
+
+      <p class="modal-text">
+        The perfect designer simply doesn’t exist. A portfolio shows outcomes and mindset
+        shows how those outcomes are achieved. What matters most is fit, growth,
+        and potential over perfection.
+      </p>
+
+      <div class="text-tag text-tag--blue">#unpopular-opinion</div>
+
+      <div class="modal-actions">
+        <a class="cta-button cta-animated" href="https://google.com" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">
+          <span class="cta-text">Download Resume</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+<script src="script.js" defer></script>
 </body>
 
 </html>

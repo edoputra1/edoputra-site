@@ -289,4 +289,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, 0);
+
+
+  let scrollPos = 0;
+  $('#resume-trigger').on('click', function (e) {
+    e.preventDefault();
+    
+    scrollPos = window.pageXOffset;
+    $('body').addClass('modal-open');
+    $('body').css('left', -scrollPos + 'px');
+    
+    $('#resume-modal').modal({
+      fadeDuration: 150
+    });
+  });
+  
+  $(document).on($.modal.CLOSE, function() {
+    $('body').removeClass('modal-open');
+    $('body').css('left', '');
+    window.scrollTo(scrollPos, 0);
+  });
 });
