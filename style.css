@@ -42,7 +42,7 @@ body {
   width: 100vw !important;
   height: 100vh !important;
   z-index: 9998 !important;
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.65) !important;
   overflow: hidden !important;
 }
 
@@ -64,13 +64,13 @@ body {
 
 @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
   .modal {
-    background: rgba(0, 0, 0, 0.3) !important;
+    background: rgba(0, 0, 0, 0.15) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
   }
 }
 
-body.modal-open {
+.modal-open {
   overflow: hidden !important;
   position: fixed !important;
   width: 100% !important;
@@ -89,7 +89,7 @@ body.modal-open {
 }
 
 .modal-title {
-  font-size: 0.75rem;
+  font-size: 0.825rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.8;
@@ -116,6 +116,15 @@ body.modal-open {
   align-self: flex-start;
 }
 
+.modal .cta-button {
+  padding: 1rem 1.25rem;
+}
+
+.modal .cta-text {
+  font-size: 1.25rem;
+}
+
+/* Sidebar */
 .sidebar-fixed {
   position: fixed;
   left: 0;
@@ -696,7 +705,7 @@ li a:hover::after {
   align-items: baseline;
   gap: 3rem;
   width: max-content;
-  animation: marquee-scroll 20s linear infinite;
+  animation: marquee-scroll 30s linear infinite;
 }
 
 .marquee .client {
@@ -895,14 +904,10 @@ li a:hover::after {
     gap: 0.75rem !important;
   }
 
-  .modal-cancel {
-    font-size: 0.7rem !important;
-    text-align: center !important;
-  }
-
   .modal .text-tag {
     font-size: 0.65rem !important;
     padding: 0.25rem 0.4rem !important;
+  }
 }
 
 /* Hide Sidebar on Mobile */
