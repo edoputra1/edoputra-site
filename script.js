@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const isDesktop = () => window.innerWidth > 700;
 
-
+  //clock
   if (isDesktop()) {
     function updateClock() {
       const now = new Date();
@@ -17,12 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
     }
-
     updateClock();
     setInterval(updateClock, 100);
   }
 
-
+  //sidebar-title
   const words = [
     'EDO SEPTIYAN PUTRA ',
     'PRODUCT DESIGNER ',
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLoop();
   }
 
-
+  //scroll down = horizontal
   if (isDesktop()) {
     window.addEventListener('wheel', (e) => {
       if (e.deltaY !== 0) {
@@ -83,92 +82,90 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: false });
   }
 
+  //animated button
+  if (isDesktop()) {
+    document.querySelectorAll('.cta-animated').forEach(cta => {
+      const textEl = cta.querySelector('.cta-text');
+      if (!textEl) return;
 
-  document.querySelectorAll('.cta-animated').forEach(cta => {
-    const textEl = cta.querySelector('.cta-text');
-    if (!textEl) return;
+      const text = textEl.textContent.trim();
 
-    const text = textEl.textContent.trim();
+      const letters = [...text]
+        .map((char, i) =>
+          `<span style="--i:${i}">${char === ' ' ? '&nbsp;' : char}</span>`
+        )
+        .join('');
 
-    const letters = [...text]
-      .map((char, i) =>
+      const arrowSVG = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7 17L17 7M17 7H7M17 7V17"
+            stroke="white"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      `;
+      textEl.innerHTML = `
+        <span class="frame">
+          <span class="sizer">${text}</span>
+          <span class="text original">${letters}</span>
+          <span class="text hover">${letters}</span>
+        </span>
+      `;
+
+      const arrow = document.createElement('span');
+      arrow.className = 'cta-arrow';
+      arrow.innerHTML = arrowSVG;
+      cta.appendChild(arrow);
+    });
+  }
+
+  //animated link
+  if (isDesktop()) {
+    document.querySelectorAll('.nav-animated').forEach(link => {
+      const text = link.textContent.trim();
+
+      const letters = [...text].map((char, i) =>
         `<span style="--i:${i}">${char === ' ' ? '&nbsp;' : char}</span>`
-      )
-      .join('');
+      ).join('');
 
-    const arrowSVG = `
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M7 17L17 7M17 7H7M17 7V17"
-          stroke="white"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    `;
+      const chevronSVG = `
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9 18L15 12L9 6"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      `;
 
-    textEl.innerHTML = `
-      <span class="frame">
-        <span class="sizer">${text}</span>
-        <span class="text original">${letters}</span>
-        <span class="text hover">${letters}</span>
-      </span>
-    `;
+      link.innerHTML = `
+        <span class="frame">
+          <span class="sizer">${text}</span>
+          <span class="text original">${letters}</span>
+          <span class="text hover">${letters}</span>
+        </span>
 
-    const arrow = document.createElement('span');
-    arrow.className = 'cta-arrow';
-    arrow.innerHTML = arrowSVG;
-    cta.appendChild(arrow);
+        <span class="nav-chevron">
+          <span class="chevron-original">${chevronSVG}</span>
+          <span class="chevron-hover">${chevronSVG}</span>
+        </span>
+        `;
+    });
+  }
 
-    if (isDesktop()) {
-    }
-  });
-
-
-  document.querySelectorAll('.nav-animated').forEach(link => {
-    const text = link.textContent.trim();
-
-    const letters = [...text].map((char, i) =>
-      `<span style="--i:${i}">${char === ' ' ? '&nbsp;' : char}</span>`
-    ).join('');
-
-    const chevronSVG = `
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M9 18L15 12L9 6"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    `;
-
-    link.innerHTML = `
-      <span class="frame">
-        <span class="sizer">${text}</span>
-        <span class="text original">${letters}</span>
-        <span class="text hover">${letters}</span>
-      </span>
-
-      <span class="nav-chevron">
-        <span class="chevron-original">${chevronSVG}</span>
-        <span class="chevron-hover">${chevronSVG}</span>
-      </span>
-    `;
-
-    if (isDesktop()) {
-    }
-  });
-
-
+  // footer element animation
   const allSVGs = [
   'ep01.svg','ep02.svg','ep03.svg','ep04.svg','ep05.svg',
   'ep06.svg','ep07.svg','ep08.svg','ep09.svg','ep10.svg',
-  'ep11.svg','ep12.svg','ep13.svg','ep14.svg','ep15.svg'
+  'ep11.svg','ep12.svg','ep13.svg','ep14.svg','ep15.svg',
+  'ep16.svg','ep17.svg','ep18.svg'
   ];
 
   const preloadPromises = allSVGs.map(src => {
@@ -192,8 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start cycling after preload
   Promise.all(preloadPromises)
     .then(() => {
-    console.log('All SVGs loaded successfully');
-    
     Object.entries(normalSlots).forEach(([slotId, interval]) => {
       const container = document.getElementById(slotId);
       if (!container) return;
@@ -229,10 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       startInterval(70);
 
-      setInterval(() => {
+      let speedChangeInterval = setInterval(() => {
         currentInterval = currentInterval === 70 ? 300 : 70;
         startInterval(currentInterval);
-        console.log(`SlotA speed: ${currentInterval}ms`);
       }, 3000);
     }
 
@@ -257,10 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       startInterval(400);
 
-      setInterval(() => {
+      let speedChangeInterval = setInterval(() => {
         currentInterval = currentInterval === 400 ? 800 : 400;
         startInterval(currentInterval);
-        console.log(`SlotB speed: ${currentInterval}ms`);
       }, 2000);
     }
   })

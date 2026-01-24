@@ -469,6 +469,10 @@ li a:hover::after {
   outline-offset: 1px;
 }
 
+.cta-button--dark {
+  background: var(--color-black);
+}
+
 .cta-text {
   display: flex;
   align-items: center;
@@ -551,16 +555,6 @@ li a:hover::after {
 
 .cta-animated:hover .hover span {
   transform: translateY(0);
-}
-
-.cta-text {
-  transform: none;
-}
-
-.cta-arrow>svg {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
 }
 
 /* NAV */
@@ -822,11 +816,6 @@ li a:hover::after {
   );
   background-size: 20px 20px;
   animation: slide-diagonal 4s linear infinite;
-}
-
-@keyframes slide-diagonal {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
 }
 
 /* Mobile Styles */
