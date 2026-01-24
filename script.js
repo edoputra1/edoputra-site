@@ -1,7 +1,8 @@
 const isDesktop = window.matchMedia('(min-width: 768px)').matches;
 let lenis;
-  if (isDesktop) {
-    lenis = new Lenis({
+
+if (isDesktop) {
+  lenis = new Lenis({
     orientation: 'horizontal',
     gestureOrientation: 'both',
     smoothWheel: true,
@@ -9,13 +10,18 @@ let lenis;
     lerp: 0.08,
     autoRaf: true,
   });
+
+  lenis.on('scroll', (e) => {
+    console.log('Scroll position:', e.scroll);
+  });
 }
-lenis.on('scroll', (e) => {
-  console.log('Scroll position:', e.scroll);
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   const isDesktop = () => window.innerWidth > 700;
+
+  // Debug
+  console.log('CTA animated elements found:', document.querySelectorAll('.cta-animated').length);
+  console.log('Nav animated elements found:', document.querySelectorAll('.nav-animated').length);
 
   //clock
   if (isDesktop()) {
@@ -85,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLoop();
   }
 
-  //animated button
+  //animated button - works on all devices
   document.querySelectorAll('.cta-animated').forEach(cta => {
     const textEl = cta.querySelector('.cta-text');
     if (!textEl) return;
@@ -124,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cta.appendChild(arrow);
   });
 
-  //animated link
+  //animated link - works on all devices
   document.querySelectorAll('.nav-animated').forEach(link => {
     const text = link.textContent.trim();
 
@@ -158,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </span>
     `;
   });
+
   // footer element animation
   const allSVGs = [
   'ep01.svg','ep02.svg','ep03.svg','ep04.svg','ep05.svg',
