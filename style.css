@@ -26,7 +26,7 @@ html {
 }
 @media (max-width: 1680px) {html {font-size: 13px;}}
 @media (max-width: 1440px) {html {font-size: 11px;}}
-@media (max-width: 1280px) {html {font-size: 9.5px;}}
+@media (max-width: 1280px) {html {font-size: 10px;}}
 
 body {
   background: var(--color-black);
@@ -843,40 +843,40 @@ li a:hover::after {
   }
 
   .text-large {
-    font-size: 2.5rem;
+    font-size: 5rem;
     margin-bottom: 3rem;
   }
   .text-medium {
-    font-size: 1.75rem;
+    font-size: 3rem;
   }
   .text-body {
-    font-size: 1.125rem;
+    font-size: 1.6rem;
     margin-bottom: 2rem;
   }
   .text-body.emphasis {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
   .text-section {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .text-small {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
   .text-footer {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   .marquee .client-name {
-    font-size: 1.825rem;
+    font-size: 3rem;
   }
   .marquee .client-region {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .marquee .sep {
-    width: 1.825rem;
-    height: 1.825rem;
+    width: 3rem;
+    height: 3rem;
   }
   .nav-link {
-    font-size: 1.5rem;
+    font-size: 2.4rem;
   }
   .nav-animated .nav-chevron {
     width: 1.5rem;
@@ -887,14 +887,14 @@ li a:hover::after {
     width: 95% !important;
   }
   .modal-content {
-    padding: 1.5rem !important;
+    padding: 3rem !important;
     gap: 1rem !important;
   }
   .modal-title {
     font-size: 0.7rem !important;
   }
   .modal-text {
-    font-size: 0.9rem !important;
+    font-size: 1.2rem !important;
   }
   .modal-actions {
     flex-direction: column !important;
