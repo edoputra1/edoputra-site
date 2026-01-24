@@ -42,7 +42,7 @@ body {
   width: 100vw !important;
   height: 100vh !important;
   z-index: 9998 !important;
-  background: rgba(0, 0, 0, 0.65) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
   overflow: hidden !important;
 }
 
@@ -64,7 +64,7 @@ body {
 
 @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
   .modal {
-    background: rgba(0, 0, 0, 0.15) !important;
+    background: rgba(0, 0, 0, 0.01) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
   }
