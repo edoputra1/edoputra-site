@@ -1,3 +1,19 @@
+const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+let lenis;
+  if (isDesktop) {
+    lenis = new Lenis({
+    orientation: 'horizontal',
+    gestureOrientation: 'both',
+    smoothWheel: true,
+    wheelMultiplier: 1.3,
+    lerp: 0.08,
+    autoRaf: true,
+  });
+}
+lenis.on('scroll', (e) => {
+  console.log('Scroll position:', e.scroll);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const isDesktop = () => window.innerWidth > 700;
 
@@ -67,19 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     typeLoop();
-  }
-
-  //scroll down = horizontal
-  if (isDesktop()) {
-    window.addEventListener('wheel', (e) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        window.scrollBy({
-          left: e.deltaY,
-          behavior: 'auto'
-        });
-      }
-    }, { passive: false });
   }
 
   //animated button
