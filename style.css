@@ -21,6 +21,13 @@ h1, h2, h3, h4, h5, h6 {
   font: inherit;
 }
 
+html {
+  font-size: 16px;
+}
+@media (max-width: 1680px) {html {font-size: 13px;}}
+@media (max-width: 1440px) {html {font-size: 11px;}}
+@media (max-width: 1280px) {html {font-size: 9.5px;}}
+
 body {
   background: var(--color-black);
   color: var(--color-white);
@@ -42,7 +49,7 @@ body {
   width: 100vw !important;
   height: 100vh !important;
   z-index: 9998 !important;
-  background: rgba(0, 0, 0, 0.6) !important;
+  background: rgba(0, 0,0, 0.7) !important;
   overflow: hidden !important;
 }
 
@@ -64,7 +71,7 @@ body {
 
 @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
   .modal {
-    background: rgba(0, 0, 0, 0.01) !important;
+    background: rgba(0, 0, 0, 0.1) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
   }
@@ -104,12 +111,6 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
-}
-
-.modal-cancel {
-  font-size: 0.75rem;
-  opacity: 0.6;
-  text-decoration: none;
 }
 
 .modal .text-tag {
@@ -188,7 +189,7 @@ body {
   font-size: 5rem;
   line-height: 1;
   letter-spacing: -0.02em;
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
   break-inside: avoid;
 }
 
@@ -655,6 +656,8 @@ li a:hover::after {
 }
 
 .nav-animated .nav-chevron svg {
+  width: 100%;
+  height: 100%;
   display: block;
   position: absolute;
   top: 0;
@@ -683,7 +686,7 @@ li a:hover::after {
   width: 100%;
   height: 1px;
   background: rgba(255, 255, 255, 0.12);
-  margin: 2rem 0;
+  margin: 1rem 0;
 }
 
 .marquee {
@@ -900,7 +903,7 @@ li a:hover::after {
 }
 
 /* Hide Sidebar on Mobile */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .sidebar-fixed {
     display: none;
   }
