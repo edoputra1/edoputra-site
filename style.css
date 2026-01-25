@@ -384,7 +384,7 @@ li a:hover::after {
 }
 
 .section-block {
-  margin-top: 5rem;
+  margin-top: 4rem;
   margin-bottom: 2rem;
   break-inside: avoid;
 }
@@ -689,14 +689,21 @@ li a:hover::after {
   margin: 1rem 0;
 }
 
-.marquee {
+/* Marquee */
+.marquee-frame {
   position: relative;
   width: 100%;
   margin: 3rem 0;
+  padding: 3rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.marquee {
+  position: relative;
+  width: 100%;
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
 }
-
 .marquee-track {
   display: flex;
   align-items: baseline;
@@ -710,7 +717,6 @@ li a:hover::after {
   align-items: center;
   gap: 1rem;
 }
-
 .marquee .client-name {
   font-size: 3rem;
   line-height: 1.25;
@@ -718,14 +724,12 @@ li a:hover::after {
   white-space: nowrap;
   color: var(--color-white);
 }
-
 .marquee .client-region {
   font-size: 1.5rem;
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.4);
 }
-
 .marquee .sep {
   width: 3rem;
   height: 3rem;
@@ -736,6 +740,82 @@ li a:hover::after {
 
   flex-shrink: 0;
   align-self: center;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-frame.frame-skill {
+  border: none;
+  margin: 5rem 0;
+  padding: 0;
+}
+
+.skill-card {
+  width: 24rem;
+  padding: 0 2rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  break-inside: avoid;
+}
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.skill-header .text-small {
+  margin-bottom: 0;
+}
+
+.skill-icon {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  background-color: var(--color-blue);
+
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+.skill-icon--async {
+  mask-image: url("/assets/svgs/skill-async.svg");
+  -webkit-mask-image: url("/assets/svgs/skill-async.svg");
+}
+.skill-icon--ai {
+  mask-image: url("/assets/svgs/skill-ai.svg");
+  -webkit-mask-image: url("/assets/svgs/skill-ai.svg");
+}
+.skill-icon--scale {
+  mask-image: url("/assets/svgs/skill-scale.svg");
+  -webkit-mask-image: url("/assets/svgs/skill-scale.svg");
+}
+.skill-icon--teamfit {
+  mask-image: url("/assets/svgs/skill-teamfit.svg");
+  -webkit-mask-image: url("/assets/svgs/skill-teamfit.svg");
+}
+
+.marquee-track.track-skill {
+  gap: 0;
+  animation: marquee-scroll 21s linear infinite;
+}
+
+.marquee .text-small {
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.8);
+}
+.text-emphasis {
+  font-weight: 400;
 }
 
 .summary-container {
@@ -782,15 +862,6 @@ li a:hover::after {
   -webkit-mask: url("/assets/img/arrow-right.svg") center / contain no-repeat;
   mask: url("/assets/img/arrow-right.svg") center / contain no-repeat;
   flex-shrink: 0;
-}
-
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 .svg-grid {
@@ -840,6 +911,14 @@ li a:hover::after {
 
   .force-column {
     break-before: auto;
+  }
+
+  .icon-wrapper {
+    background: repeating-linear-gradient(135deg,
+        rgba(255, 255, 255, 0.12) 0px,
+        rgba(255, 255, 255, 0.12) 1px,
+        transparent 1px,
+        transparent 4px);
   }
 
   .text-large {

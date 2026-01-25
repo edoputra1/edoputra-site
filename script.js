@@ -17,6 +17,17 @@ if (isDesktop) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.marquee-track').forEach(track => {
+  const children = Array.from(track.children);
+
+  children.forEach(child => {
+    const clone = child.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+    });
+  });
+  
+  
   const isDesktop = () => window.innerWidth > 700;
 
   // Debug
