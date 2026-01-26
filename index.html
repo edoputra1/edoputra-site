@@ -28,6 +28,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="/assets/img/showreel.webp" as="image" type="image/webp"/>
 
   <script src="assets/js/jquery-3.7.1.min.js"></script>
   <script src="assets/js/jquery.modal.min.js"></script>
@@ -47,7 +48,7 @@
   <main class="content-wrapper">
     <div class="section-break">
       <h1 class="text-large">
-        <span class="hero-name">Edo Putra</span><br>— a (Senior) Product <span class="hero-mark">Designer<svg class="hero-dot"
+        <span class="hero-name text-gradient">Edo Putra</span><br>— a (Senior) Product <span class="hero-mark">Designer<svg class="hero-dot"
             viewBox="0 0 10 10" aria-hidden="true">
             <circle cx="5" cy="5" r="5" />
           </svg></span>
@@ -61,10 +62,12 @@
           <span class="cta-text">Let's talk!</span>
         </a>
       </div>
+
+      <div class="mobile-spacer spacer-large" aria-hidden="true"></div>
     </div>
 
     <div class="section-break force-column">
-      <h2 class="text-medium">Based in Yogyakarta, Indonesia, with over 10+ years of experience designing and delivering web and mobile products across B2C, B2B, and enterprise environments.</h2>
+      <h2 class="text-medium">Based in Yogyakarta, Indonesia, with <span class="text-gradient">10+ years</span> of experience designing and delivering web and mobile products across B2C, B2B, and enterprise environments</h2>
       
       <div class="marquee-frame">
         <div class="marquee">
@@ -90,18 +93,52 @@
           </div>
         </div>
       </div>
-      
+
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
     </div>
 
     <div class="section-break force-column">
+      
+      <button id="openShowreel" class="showreel-card" aria-label="Open showreel">
+        <div class="showreel-bg"></div>
+        <div class="showreel-overlay">
+          <div class="showreel-title">Play<br>Design<br>Showreel</div>
+          <div class="showreel-pattern"></div>
+        </div>
+      </button>
+
+      <div id="showreel-modal" class="showreel-modal">
+        <button id="closeShowreel" class="showreel-modal-close" aria-label="Close"></button>
+        <div class="showreel-modal-frame">
+          <iframe
+            id="showreelIframe"
+            src=""
+            title="Design Showreel"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      
       <div class="button-wrap">
-        <a href="#" class="nav-link nav-animated" id="resume-trigger">Resume</a>
-        <div class="divider"></div>
-        <a href="https://google.com" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">Portfolio (Soon)</a>
-        <div class="divider"></div>
-        <a href="https://linkedin.com/in/edoputra" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">Linkedin</a>
-        <div class="divider"></div>
-        <a href="https://instagram.com/__edoputra" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <div class="nav-item">
+          <a href="#" class="nav-link nav-animated" id="resume-trigger">Resume</a>
+        </div>
+        <div class="nav-item">
+          <a href="https://google.com" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">
+            Portfolio (Soon)
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="https://linkedin.com/in/edoputra" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">
+            Linkedin
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="https://instagram.com/__edoputra" class="nav-link nav-animated" target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+        </div>
       </div>
 
       <div class="pattern-area">
@@ -109,7 +146,14 @@
           <div class="dot-pattern"></div>
         </div>
       </div>
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+    </div>
 
+    
+
+    <div class="section-break force-column">
+      <h2 class="text-medium">About myself</h2>
+      <div class="divider"></div>
       <div class="section-block">
         <div class="icon-wrapper">
           <img src="/assets/img/outcome.svg" alt="Icon for specs" class="icon-svg" loading="lazy" />
@@ -124,24 +168,24 @@
           <li>Led full design of a peer-to-peer welfare platform during the COVID-19 crisis, attracting 1.7 million visitors and winning Gold Lion at the Cannes Lions 2022.<br><span class="text-tag">Available on Case Study</span></li>
         </ul>
       </div>
-
       <div class="section-block">
         <div class="icon-wrapper">
           <img src="/assets/img/communication.svg" alt="Icon for comms" class="icon-svg" loading="lazy" />
         </div>
-        <h3 class="text-section">How do you work with clients?</h3>
+        <h3 class="text-section">How do I work with clients?</h3>
       </div>
       <div class="text-body emphasis">I believe great design comes from close collaboration with stakeholders, continuous iteration, and validation with real users.</div>
       <div class="text-body">Projects begin with a clearly defined scope and set of requirements. I work with stakeholders to break these requirements into user journeys, UX flows, and detailed requirement mappings. I provide visual references (moodboard), create wireframes and prototypes to validate structure, interactions, and edge cases.</div>
-      <div class="text-small">High-fidelity designs are produced in Figma—deliverables include production-ready screens and reusable components. I also collaborate closely with developers ensuring alignment from design to implementation.</div>
+      <div class="text-body">High-fidelity designs are produced in Figma—deliverables include production-ready screens and reusable components. I also collaborate closely with developers ensuring alignment from design to implementation.</div>
       <div class="summary-container">
         <div class="text-summary-area">Defining <span class="sep"></span> Mapping <span class="sep"></span> Ideation <span class="sep"></span> Wireframe <span class="sep"></span> Design + Prototype <span class="sep"></span> Handoff</div>
       </div>
 
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+      
       <div class="marquee-frame frame-skill">
         <div class="marquee">
           <div class="marquee-track track-skill">
-
             <div class="skill-card">
               <div class="skill-header">
                 <span class="skill-icon skill-icon--async"></span>
@@ -175,11 +219,14 @@
         </div>
       </div>
 
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+    </div>
+
       <div class="section-break force-column">
         <div class="icon-wrapper">
           <img src="/assets/img/tools.svg" alt="Icon for tools" class="icon-svg" loading="lazy" />
         </div>
-        <h3 class="text-section">What tools do you use?</h3>
+        <h3 class="text-section">What tools do I use?</h3>
       </div>
       <div class="text-body emphasis">Figma is the core of my design workflow, from early exploration to high-fidelity production.</div>
       <div class="text-body">I rely on it not just for UI design, but also for building and maintaining design systems, documenting decisions, and collaborating closely with engineers. FigJam (and occasionally Whimsical) to map ideas, run design workshops, and align stakeholders around problems before moving into solutions.</div>
@@ -197,7 +244,7 @@
         <div class="icon-wrapper">
           <img src="/assets/img/smile.svg" alt="Icon for smile" class="icon-svg" loading="lazy" />
         </div>
-        <h3 class="text-section">Who are you again?</h3>
+        <h3 class="text-section">Who am I again?</h3>
       </div>
       <div class="text-body">
         <ul>
@@ -209,6 +256,9 @@
           <li>Top Rated freelancer on <a href="https://www.upwork.com/freelancers/~019d59cf7055bdee33" target="_blank" rel="noopener noreferrer">Upwork</a></li>
         </ul>
       </div>
+
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+
       <div class="cta-wrap">
         <a class="cta-button cta-animated cta-button--dark" href="mailto:hi.edoputra@gmail.com">
           <span class="cta-text">Ready to talk?</span>
@@ -216,7 +266,11 @@
       </div>
     </div>
 
+    <div class="section-break force-column"></div>
     <div class="section-break force-column">
+      <div class="mobile-spacer spacer-large" aria-hidden="true"></div>
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+
       <div class="svg-grid">
         <div class="svg-slot" id="slotA"></div>
         <div class="svg-slot slotGrid"></div>
@@ -226,6 +280,7 @@
       </div>
       
       <footer class="text-footer">2026<br>Crafted by Edo Putra<br>Geist + Geist Mono</footer>
+
       <div class="divider"></div>
     </div>
   </main>
@@ -247,6 +302,40 @@
       </div>
     </div>
   </div>
+
+<script>
+  const modal = document.getElementById('showreel-modal');
+  const iframe = document.getElementById('showreelIframe');
+  const openBtn = document.getElementById('openShowreel');
+  const closeBtn = document.getElementById('closeShowreel');
+
+  const videoUrl = 'https://www.youtube.com/embed/okWbomrxW7o?autoplay=1&mute=0&rel=0&playsinline=1&modestbranding=1';
+
+  openBtn.addEventListener('click', () => {
+    modal.classList.add('active');
+    document.body.classList.add('showreel-modal-open');
+    if (lenis) lenis.stop();
+    iframe.src = videoUrl;
+  });
+
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.classList.remove('active');
+    document.body.classList.remove('showreel-modal-open');
+    if (lenis) lenis.start();
+    iframe.src = '';
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      modal.classList.remove('active');
+      document.body.classList.remove('showreel-modal-open');
+      if (lenis) lenis.start();
+      iframe.src = '';
+    }
+  });
+</script>
 
 <script src="script.js" defer></script>
 </body>

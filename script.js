@@ -17,6 +17,7 @@ if (isDesktop) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  
   document.querySelectorAll('.marquee-track').forEach(track => {
   const children = Array.from(track.children);
 

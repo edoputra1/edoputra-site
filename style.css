@@ -28,6 +28,13 @@ html {
 @media (max-width: 1440px) {html {font-size: 11px;}}
 @media (max-width: 1280px) {html {font-size: 10px;}}
 
+/* Spacer */
+.mobile-spacer {
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+}
+
 body {
   background: var(--color-black);
   color: var(--color-white);
@@ -175,9 +182,8 @@ body {
 
 .content-wrapper {
   height: 80vh;
-  column-width: 400px;
-  column-count: 3;
-  column-gap: 160px;
+  column-width: 28rem;
+  column-gap: clamp(4rem, 8vw, 10rem);
   column-rule: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -218,10 +224,6 @@ body {
   transform-origin: left center;
   transform: scaleX(0);
 }
-
-.hero-name:hover {
-  color: var(--color-white);
-}
 .hero-name:hover::after {
   transform: scaleX(1);
   width: 120%;
@@ -235,6 +237,18 @@ body {
   margin-bottom: 4rem;
   break-inside: avoid;
 }
+.text-gradient {
+  font-weight: 400;
+  background: linear-gradient(
+    110deg,
+    var(--color-blue) 0%,
+    var(--color-cyan) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 
 .text-body {
   font-size: 1.5rem;
@@ -245,7 +259,6 @@ body {
 .text-body.emphasis {
   font-size: 2.25rem;
   line-height: inherit;
-  margin-bottom: inherit;
 }
 
 .text-small {
@@ -263,7 +276,7 @@ body {
 }
 
 .text-section {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 1.25;
   letter-spacing: -0.01em;
   margin-bottom: 2rem;
@@ -388,6 +401,9 @@ li a:hover::after {
   margin-bottom: 2rem;
   break-inside: avoid;
 }
+.section-block:first-child {
+  margin-top: 0;
+}
 
 .section-break {
   margin-bottom: 4rem;
@@ -428,7 +444,7 @@ li a:hover::after {
 }
 
 .pattern-frame {
-  height: 6rem;
+  height: 8rem;
 }
 
 .dot-pattern {
@@ -436,6 +452,154 @@ li a:hover::after {
   height: 100%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1.5px, transparent 2px);
   background-size: 16px 16px;
+}
+
+/* Showreel Card */
+.showreel-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 16rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  margin-bottom: 3rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+.showreel-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background-image:
+    image-set(
+      url('/assets/img/showreel.webp') type('image/webp'),
+      url('/assets/img/showreel.jpg') type('image/jpeg')
+    );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: opacity 0.3s ease;
+  will-change: transform;
+}
+
+.showreel-card:hover .showreel-bg {
+  opacity: 0.7;
+}
+
+.showreel-overlay {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  pointer-events: none;
+}
+
+.showreel-title {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+
+.showreel-pattern {
+  width: 3rem;
+  height: 4rem;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-white) 0px,
+    var(--color-white) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: showreel-diagonal 2s linear infinite;
+}
+
+.showreel-card:hover .showreel-pattern {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-cyan) 0px,
+    var(--color-cyan) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+}
+
+@keyframes showreel-diagonal {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 20px 20px;
+  }
+}
+
+body.showreel-modal-open {
+  overflow: hidden;
+}
+.showreel-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.showreel-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.showreel-modal-close {
+  position: absolute;
+  inset: 0;
+  cursor: default;
+  border: none;
+  background: none;
+  padding: 0;
+}
+.showreel-modal-frame {
+  position: relative;
+  z-index: 1;
+
+  width: min(95vw, 1200px);
+  aspect-ratio: 16 / 9;
+
+  background: var(--color-black);
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+
+  transform: scale(0.96);
+  transition: transform 0.35s ease;
+}
+.showreel-modal.active .showreel-modal-frame {
+  transform: scale(1);
+}
+.showreel-modal-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* CTA */
@@ -560,8 +724,16 @@ li a:hover::after {
 
 /* NAV */
 .button-wrap {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   break-inside: avoid;
+}
+.nav-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.nav-item:last-child {
+  border-bottom: none;
 }
 
 .nav-link {
@@ -571,7 +743,7 @@ li a:hover::after {
   padding: 0.5rem 1rem;
   gap: 1rem;
 
-  background: transparent;
+  background: rgba(255, 255, 255, 0.0);
   color: var(--color-white);
   font-size: 2.5rem;
   line-height: 1.25;
@@ -581,7 +753,6 @@ li a:hover::after {
 
   transition: background 0.2s ease;
 }
-
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.05);
 }
@@ -762,7 +933,7 @@ li a:hover::after {
   border-left: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   break-inside: avoid;
 }
 .skill-header {
@@ -832,7 +1003,7 @@ li a:hover::after {
     transparent 1px,
     transparent 14px);
   
-  background-size: 20px 20px; /* optional: control speed & spacing */
+  background-size: 20px 20px;
   animation: slide-diagonal 4s linear infinite;
 
   padding: 1.5rem;
@@ -901,6 +1072,13 @@ li a:hover::after {
     padding: 5vh 5vw;
   }
 
+  .mobile-spacer.spacer-small {
+    height: 3.5rem;
+  }
+  .mobile-spacer.spacer-large {
+    height: 12rem;
+  }
+
   .content-wrapper {
     height: auto;
     column-width: auto;
@@ -919,6 +1097,10 @@ li a:hover::after {
         rgba(255, 255, 255, 0.12) 1px,
         transparent 1px,
         transparent 4px);
+  }
+
+  .showreel-bg {
+    background-image: url('/assets/img/showreel.jpg') !important;
   }
 
   .text-large {
