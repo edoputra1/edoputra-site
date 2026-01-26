@@ -424,6 +424,7 @@ li a:hover::after {
   animation: typewriter-blink 2s steps(1, start) infinite;
 }
 
+
 @keyframes typewriter-blink {
   0%,
   50%,
