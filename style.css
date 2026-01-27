@@ -139,7 +139,7 @@ body {
   top: 0;
   width: 4rem;
   height: 100vh;
-  background: var(--color-blue);
+  background: var(--color-black);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -156,9 +156,9 @@ body {
 
 @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
   .sidebar-fixed {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 }
 
