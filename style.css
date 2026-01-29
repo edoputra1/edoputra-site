@@ -270,7 +270,7 @@ body {
 
 .text-footer {
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 0.825rem;
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.5);
 }
