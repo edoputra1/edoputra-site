@@ -21,17 +21,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // Force video autoplay on mobile
   const showreelVideo = document.querySelector('.showreel-bg');
   if (showreelVideo) {
-    // Try to play immediately
-    showreelVideo.play().catch(() => {
-      // If autoplay fails, try again on first user interaction
-      const playOnInteraction = () => {
-        showreelVideo.play();
-        document.removeEventListener('touchstart', playOnInteraction);
-        document.removeEventListener('click', playOnInteraction);
-      };
-      document.addEventListener('touchstart', playOnInteraction, { once: true });
-      document.addEventListener('click', playOnInteraction, { once: true });
-    });
+    const attemptPlay = () => {
+      showreelVideo.play().catch(() => {
+        // If autoplay fails, try again on first user interaction
+        const playOnInteraction = () => {
+          showreelVideo.play().catch(() => {});
+        };
+        document.addEventListener('touchstart', playOnInteraction, { once: true });
+        document.addEventListener('click', playOnInteraction, { once: true });
+        document.addEventListener('scroll', playOnInteraction, { once: true });
+      });
+    };
+
+    // Wait for video to be ready
+    if (showreelVideo.readyState >= 3) {
+      // Video is already loaded enough to play
+      attemptPlay();
+    } else {
+      // Wait for video to load
+      showreelVideo.addEventListener('canplay', attemptPlay, { once: true });
+      // Also try on loadeddata as backup
+      showreelVideo.addEventListener('loadeddata', attemptPlay, { once: true });
+    }
+
+    // Fallback: try after a short delay regardless
+    setTimeout(attemptPlay, 500);
   }
 
   document.querySelectorAll('.marquee-track').forEach(track => {
