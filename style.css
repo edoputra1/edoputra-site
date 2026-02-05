@@ -485,6 +485,23 @@ li a:hover::after {
   -webkit-perspective: 1000;
 }
 
+/* Hide native video controls and play button */
+.showreel-bg::-webkit-media-controls {
+  display: none !important;
+}
+.showreel-bg::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+.showreel-bg::-webkit-media-controls-panel {
+  display: none !important;
+}
+.showreel-bg::-webkit-media-controls-play-button {
+  display: none !important;
+}
+.showreel-bg::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
 .showreel-card:hover .showreel-bg {
   opacity: 0.55;
 }

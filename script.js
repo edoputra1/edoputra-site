@@ -17,7 +17,23 @@ if (isDesktop) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+
+  // Force video autoplay on mobile
+  const showreelVideo = document.querySelector('.showreel-bg');
+  if (showreelVideo) {
+    // Try to play immediately
+    showreelVideo.play().catch(() => {
+      // If autoplay fails, try again on first user interaction
+      const playOnInteraction = () => {
+        showreelVideo.play();
+        document.removeEventListener('touchstart', playOnInteraction);
+        document.removeEventListener('click', playOnInteraction);
+      };
+      document.addEventListener('touchstart', playOnInteraction, { once: true });
+      document.addEventListener('click', playOnInteraction, { once: true });
+    });
+  }
+
   document.querySelectorAll('.marquee-track').forEach(track => {
   const children = Array.from(track.children);
 
