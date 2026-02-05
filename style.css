@@ -479,7 +479,10 @@ li a:hover::after {
   object-fit: cover;
   opacity: 0.15;
   transition: opacity 0.3s ease;
-  will-change: transform;
+  will-change: opacity;
+  -webkit-appearance: none;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
 }
 
 .showreel-card:hover .showreel-bg {
@@ -595,6 +598,25 @@ body.showreel-modal-open {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+/* Mobile video fixes */
+@media (max-width: 768px) {
+  .showreel-bg {
+    /* Ensure video plays on mobile */
+    -webkit-playsinline: true;
+    -webkit-user-select: none;
+  }
+
+  .showreel-card {
+    /* Improve touch target */
+    min-height: 200px;
+  }
+
+  .showreel-modal-frame {
+    width: min(100vw, 100%);
+    aspect-ratio: 16 / 9;
+  }
 }
 
 /* CTA */
