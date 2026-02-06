@@ -79,5 +79,4 @@ edoputra-site/
 
 ---
 
-built with attention to detail and optimized for performance
-with Claude + chatGPT 👍
+built with attention to detail — optimized for performance — assisted by Claude + chatGPT 👍
