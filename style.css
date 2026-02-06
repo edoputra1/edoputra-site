@@ -1234,3 +1234,20 @@ body.showreel-modal-open {
     display: none;
   }
 }
+
+/* Globe - 404 Page */
+.globe-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 4rem auto;
+  break-inside: avoid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.globe-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}

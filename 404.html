@@ -58,7 +58,7 @@
     <div class="section-break force-column">
       <div class="mobile-spacer spacer-large" aria-hidden="true"></div>
       <h1 class="text-large">
-        404<br>— Page Not <span class="hero-mark">Found<svg class="hero-dot"
+        404 — <br>Page Not <span class="hero-mark">Found<svg class="hero-dot"
             viewBox="0 0 240 240" aria-hidden="true">
             <path d="M68.3821 216.874L216.875 68.3811L171.62 23.1263L23.1273 171.619L68.3821 216.874Z" fill="#0026FF"/>
             <path d="M23.127 68.3811L171.619 216.873L216.874 171.619L68.3818 23.1262L23.127 68.3811Z" fill="#0026FF"/>
@@ -73,7 +73,6 @@
         </a>
       </div>
 
-      <div class="divider"></div>
     </div>
   </main>
 
@@ -89,16 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-    .attr('viewBox', `0 0 ${width} ${height}`);
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .style('cursor', 'grab');
 
   const projection = d3.geoOrthographic()
     .scale(width * 0.4)
     .center([0, 0])
-    .rotate([0, -20, 0])
+    .rotate([-130, -15, 0])
     .translate([width / 2, height / 2]);
 
   const path = d3.geoPath().projection(projection);
   const graticule = d3.geoGraticule();
+  const sensitivity = 75;
+  let autoRotate = true;
 
   const g = svg.append('g');
 
@@ -115,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .attr('class', 'graticule')
     .attr('d', path)
     .attr('fill', 'none')
-    .attr('stroke', 'rgba(0, 38, 255, 0.4)')
-    .attr('stroke-width', '0.75px');
+    .attr('stroke', 'rgba(255, 255, 255, 0.2)')
+    .attr('stroke-width', '1px');
 
   const countries = g.append('g').attr('class', 'countries');
 
@@ -128,17 +130,86 @@ document.addEventListener('DOMContentLoaded', () => {
       .enter()
       .append('path')
       .attr('d', path)
-      .attr('fill', 'rgba(255, 255, 255, 0.1)')
-      .attr('stroke', 'rgba(255, 255, 255, 0.3)')
-      .attr('stroke-width', '0.5px');
+      .attr('fill', d => {
+        return d.id === '360' ? '#0026FF' : 'rgba(25, 25, 25, 0.9)';
+      })
+      .attr('stroke', d => {
+        return d.id === '360' ? '#00D4FF' : 'rgba(255, 255, 255, 0.2)';
+      })
+      .attr('stroke-width', '1px');
   });
 
+  // Drag behavior
+  const drag = d3.drag()
+    .on('start', () => {
+      autoRotate = false;
+      svg.style('cursor', 'grabbing');
+    })
+    .on('drag', (event) => {
+      const rotate = projection.rotate();
+      const k = sensitivity / projection.scale();
+      projection.rotate([
+        rotate[0] + event.dx * k,
+        rotate[1] - event.dy * k
+      ]);
+      svg.selectAll('path').attr('d', path);
+    })
+    .on('end', () => {
+      svg.style('cursor', 'grab');
+      setTimeout(() => { autoRotate = true; }, 100);
+    });
+
+  svg.call(drag);
+
+  // Auto-rotation
   d3.timer(() => {
-    const rotate = projection.rotate();
-    projection.rotate([rotate[0] + 0.2, rotate[1]]);
-
-    svg.selectAll('path').attr('d', path);
+    if (autoRotate) {
+      const rotate = projection.rotate();
+      projection.rotate([rotate[0] + 0.5, rotate[1]]);
+      svg.selectAll('path').attr('d', path);
+    }
   });
+});
+</script>
+
+<script>
+// Animated CTA button
+document.querySelectorAll('.cta-animated').forEach(cta => {
+  const textEl = cta.querySelector('.cta-text');
+  if (!textEl) return;
+
+  const text = textEl.textContent.trim();
+
+  const letters = [...text]
+    .map((char, i) =>
+      `<span style="--i:${i}">${char === ' ' ? '&nbsp;' : char}</span>`
+    )
+    .join('');
+
+  const arrowSVG = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M7 17L17 7M17 7H7M17 7V17"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  `;
+  textEl.innerHTML = `
+    <span class="frame">
+      <span class="sizer">${text}</span>
+      <span class="text original">${letters}</span>
+      <span class="text hover">${letters}</span>
+    </span>
+  `;
+
+  const arrow = document.createElement('span');
+  arrow.className = 'cta-arrow';
+  arrow.innerHTML = arrowSVG;
+  cta.appendChild(arrow);
 });
 </script>
 </body>
