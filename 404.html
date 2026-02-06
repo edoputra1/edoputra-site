@@ -108,14 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
     .attr('d', path)
     .attr('fill', 'rgba(0, 0, 0, 0.5)')
     .attr('stroke', 'rgba(255, 255, 255, 0.2)')
-    .attr('stroke-width', '1px');
+    .attr('stroke-width', '4px');
 
   g.append('path')
     .datum(graticule())
     .attr('class', 'graticule')
     .attr('d', path)
     .attr('fill', 'none')
-    .attr('stroke', 'rgba(255, 255, 255, 0.2)')
+    .attr('stroke', 'rgba(255, 255, 255, 0.15)')
     .attr('stroke-width', '1px');
 
   const countries = g.append('g').attr('class', 'countries');
@@ -129,10 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
       .append('path')
       .attr('d', path)
       .attr('fill', d => {
-        return d.id === '360' ? '#0026FF' : 'rgba(25, 25, 25, 0.9)';
+        return d.id === '360' ? '#0026FF' : 'rgba(20, 20, 20, 0.85)';
       })
       .attr('stroke', d => {
-        return d.id === '360' ? '#00D4FF' : 'rgba(255, 255, 255, 0.2)';
+        return d.id === '360' ? '#0026FF' : 'rgba(55, 55, 55, 0.8)';
       })
       .attr('stroke-width', '1px');
   });
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   d3.timer(() => {
     if (autoRotate) {
       const rotate = projection.rotate();
-      projection.rotate([rotate[0] + 0.5, rotate[1]]);
+      projection.rotate([rotate[0] + 0.6, rotate[1]]);
       svg.selectAll('path').attr('d', path);
     }
   });
@@ -171,7 +171,73 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-// Animated CTA button
+const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+if (isDesktop) {
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const milliseconds = String(Math.floor(now.getMilliseconds() / 100));
+
+    const clockElement = document.getElementById('clock');
+    if (clockElement) {
+      requestAnimationFrame(() => {
+        clockElement.textContent = `— H${hours} M${minutes} S${seconds}.${milliseconds}`;
+      });
+    }
+  }
+  updateClock();
+  setInterval(updateClock, 100);
+}
+
+const words = [
+  'EDO SEPTIYAN PUTRA ',
+  'PRODUCT DESIGNER ',
+  'AI-FIRST ',
+  '(SEASONED) HELLDIVER '
+];
+
+const typeTarget = document.getElementById('typewriter');
+const cursor = '—';
+
+if (typeTarget && isDesktop) {
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  const typingSpeed = 90;
+  const deletingSpeed = 20;
+  const holdAfterType = 3000;
+
+  function typeLoop() {
+    const currentWord = words[wordIndex];
+
+    if (!isDeleting) charIndex++;
+    else charIndex--;
+
+    requestAnimationFrame(() => {
+      typeTarget.textContent = currentWord.slice(0, charIndex) + cursor;
+    });
+
+    if (!isDeleting && charIndex === currentWord.length) {
+      setTimeout(() => (isDeleting = true), holdAfterType);
+    }
+
+    if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+    }
+
+    setTimeout(
+      typeLoop,
+      isDeleting ? deletingSpeed : typingSpeed
+    );
+  }
+
+  typeLoop();
+}
+
 document.querySelectorAll('.cta-animated').forEach(cta => {
   const textEl = cta.querySelector('.cta-text');
   if (!textEl) return;
