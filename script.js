@@ -330,6 +330,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, 0);
 
+  // Skill card rotator
+  const skillCards = document.querySelectorAll('.skill-card');
+  let currentSkill = 0;
+
+  const skillFillDuration = 4000; // progress line fill (ms)
+  const skillHoldDuration = 1000; // hold fully filled (ms)
+  const skillFadeDuration = 1000; // card fade in/out (ms)
+
+  function showSkillCard(index) {
+    const card = skillCards[index];
+    if (!card) return;
+
+    const progressLine = card.querySelector('.progress-line');
+
+    // Reset all cards and progress lines
+    skillCards.forEach((c) => {
+      c.classList.remove('active');
+      c.style.opacity = 0;
+      const line = c.querySelector('.progress-line');
+      if (line) {
+        line.style.transition = 'none';
+        line.style.width = '0';
+      }
+    });
+
+    // Activate current card
+    card.classList.add('active');
+    card.style.transition = `opacity ${skillFadeDuration}ms ease-in-out`;
+    card.style.opacity = 0;
+
+    // Force reflow
+    void card.offsetWidth;
+
+    // Fade-in
+    card.style.opacity = 1;
+
+    // Animate progress line
+    if (progressLine) {
+      progressLine.style.transition = `width ${skillFillDuration}ms linear`;
+      progressLine.style.width = '100%';
+    }
+
+    // Wait for fill + hold
+    setTimeout(() => {
+      // Fade-out current card
+      card.style.opacity = 0;
+
+      setTimeout(() => {
+        // Cleanup
+        card.classList.remove('active');
+        if (progressLine) progressLine.style.width = '0';
+
+        // Next card
+        currentSkill = (currentSkill + 1) % skillCards.length;
+        showSkillCard(currentSkill);
+      }, skillFadeDuration);
+    }, skillFillDuration + skillHoldDuration);
+  }
+
+  // Start skill card rotation
+  if (skillCards.length > 0) {
+    showSkillCard(currentSkill);
+  }
+
 
   let scrollPos = 0;
   $('#resume-trigger').on('click', function (e) {
