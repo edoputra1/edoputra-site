@@ -480,8 +480,11 @@ li a:hover::after {
   opacity: 0.15;
   transition: opacity 0.3s ease;
   will-change: opacity;
+  appearance: none;
   -webkit-appearance: none;
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  perspective: 1000;
   -webkit-perspective: 1000;
 }
 
@@ -621,7 +624,7 @@ body.showreel-modal-open {
 @media (max-width: 768px) {
   .showreel-bg {
     /* Ensure video plays on mobile */
-    -webkit-playsinline: true;
+    user-select: none;
     -webkit-user-select: none;
   }
 
