@@ -6,7 +6,7 @@ Personal portfolio website showcasing 10+ years of product design experience.
 
 ## Overview
 
-A clean, performant portfolio site built with vanilla JavaScript and optimized for speed. Features horizontal scrolling on desktop, responsive design, and smooth scrolling experience. Vanilla + Semantic markup + Custom properties + No framework overhead + Lenis + jQuery
+A clean, performant portfolio site built with vanilla JavaScript and optimized for speed. Features horizontal scrolling on desktop, responsive design, and smooth scrolling experience. Vanilla + Semantic markup + Custom properties + No framework overhead + Lenis + jQuery + Geist typeface
 
 ## Performance
 
@@ -79,5 +79,5 @@ edoputra-site/
 
 ---
 
-Built with attention to detail and optimized for performance.
+built with attention to detail and optimized for performance
 with Claude + chatGPT 👍
