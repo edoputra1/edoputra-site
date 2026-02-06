@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Edo Putra — Product Designer & UI/UX</title>
+
+  <meta name="description"
+    content="Product designer focused on UX, design systems, and close collaboration with engineering teams.">
+
+  <link rel="icon" href="/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="/assets/favicons/apple-touch-icon.png">
+
+  <meta property="og:title" content="Edo Putra — Product Designer">
+  <meta property="og:description"
+    content="Designing thoughtful digital products through UX strategy and high-fidelity execution.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edoputra.com">
+  <meta property="og:image" content="https://edoputra.com/assets/og/preview.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Edo Putra — Product Designer">
+  <meta name="twitter:description" content="Crafting scalable design systems and intuitive user experiences.">
+  <meta name="twitter:image" content="https://edoputra.com/assets/og/preview.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap">
+  </noscript>
+
+  <!-- Defer non-critical scripts - load in order -->
+  <script defer src="assets/js/jquery-3.7.1.min.js"></script>
+  <script defer src="assets/js/jquery.modal.min.js"></script>
+
+  <!-- Preload critical CSS -->
+  <link rel="preload" href="style.css" as="style">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Defer modal CSS - not needed immediately -->
+  <link rel="preload" href="assets/css/jquery.modal.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="assets/css/jquery.modal.min.css"></noscript>
+
+  <!-- Defer Lenis - not needed for initial render -->
+  <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js" defer></script>
+</head>
+
+<body>
+  <aside class="sidebar-fixed" role="complementary">
+    <div class="sidebar-clock" id="clock">— H00 M00 S00.0</div>
+    <div class="sidebar-name" id="typewriter"></div>
+  </aside>
+
+  <main class="content-wrapper">
+    <div class="section-break">
+      <h1 class="text-large">
+        404<br>— Page Not <span class="hero-mark">Found<svg class="hero-dot"
+            viewBox="0 0 240 240" aria-hidden="true">
+            <path d="M68.3821 216.874L216.875 68.3811L171.62 23.1263L23.1273 171.619L68.3821 216.874Z" fill="#0026FF"/>
+            <path d="M23.127 68.3811L171.619 216.873L216.874 171.619L68.3818 23.1262L23.127 68.3811Z" fill="#0026FF"/>
+          </svg></span>
+      </h1>
+
+      <div class="text-small">This location does not exist within authorized Super Earth star charts. Safety Protocol Alpha activated. FTL jump sequence initializing. Returning you to Super Earth for re-education.</div>
+
+      <div class="cta-wrap">
+        <a class="cta-button cta-animated" href="https://edoputra.com">
+          <span class="cta-text">Back to Home</span>
+        </a>
+      </div>
+
+      <div class="mobile-spacer spacer-large" aria-hidden="true"></div>
+    </div>
+
+    <div class="section-break force-column">
+      <div class="mobile-spacer spacer-large" aria-hidden="true"></div>
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+
+      <div class="svg-grid">
+        <div class="svg-slot" id="slotA"></div>
+        <div class="svg-slot slotGrid"></div>
+        <div class="svg-slot slotGrid"></div>
+        <div class="svg-slot" id="slotB"></div>
+        <div class="svg-slot" id="slotC"></div>
+      </div>
+      
+      <footer class="text-footer">2026<br>crafted by Edo Putra<br>Geist + Geist Mono</footer>
+
+      <div class="divider"></div>
+    </div>
+  </main>
+<script src="script.js" defer></script>
+</body>
+
+</html>
