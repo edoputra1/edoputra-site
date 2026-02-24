@@ -1,5 +1,11 @@
 [
   {
+    "slug": "style-guide",
+    "title": "Post Style Guide",
+    "date": "2026-02-24",
+    "tags": ["docs", "reference"]
+  },
+  {
     "slug": "hello-world",
     "title": "Hello, World",
     "date": "2026-02-24",
