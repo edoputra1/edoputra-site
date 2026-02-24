@@ -6,7 +6,7 @@
 >
 > I don’t know exactly where this leads. But I know one thing. I’d rather build than wait.
 >
-> Welcome, I guess...
+> Welcome.
 
 エド プテラ <br>
 Edo Putra
