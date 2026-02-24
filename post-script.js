@@ -92,18 +92,132 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- Post List Rendering (for /post/index.html) ---
+  // --- View Elements ---
+  const viewList = document.getElementById('view-list');
+  const viewReader = document.getElementById('view-reader');
+
+  // --- View Switching ---
+  function getSlug() {
+    const hash = window.location.hash;
+    return hash ? hash.slice(1) : null;
+  }
+
+  function showListView() {
+    if (!viewList || !viewReader) return;
+
+    document.body.classList.remove('post-reader');
+    viewList.style.display = '';
+    viewReader.style.display = 'none';
+    document.title = 'Posts — Edo Putra';
+
+    // Re-init Lenis for horizontal scroll
+    if (typeof initLenis === 'function') initLenis();
+  }
+
+  function showReaderView(slug) {
+    if (!viewList || !viewReader) return;
+
+    // Destroy Lenis (no horizontal scroll in reader)
+    if (typeof destroyLenis === 'function') destroyLenis();
+
+    document.body.classList.add('post-reader');
+    viewList.style.display = 'none';
+    viewReader.style.display = '';
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Clear previous content
+    const titleEl = document.getElementById('post-title');
+    const dateEl = document.getElementById('post-date');
+    const contentEl = document.getElementById('post-content');
+    const tagsEl = document.getElementById('post-tags');
+
+    if (titleEl) titleEl.textContent = '';
+    if (dateEl) dateEl.textContent = '';
+    if (contentEl) contentEl.innerHTML = '';
+    if (tagsEl) tagsEl.innerHTML = '';
+
+    // Fetch and render post
+    fetch('/posts/posts.json')
+      .then(res => res.json())
+      .then(posts => {
+        const post = posts.find(p => p.slug === slug);
+        if (!post) {
+          if (contentEl) contentEl.innerHTML = '<div class="post-not-found">Post not found.</div>';
+          return;
+        }
+
+        if (titleEl) titleEl.textContent = post.title;
+        if (dateEl) dateEl.textContent = formatDate(post.date);
+        document.title = `${post.title} — Edo Putra`;
+
+        if (tagsEl) {
+          post.tags.forEach(tag => {
+            const tagEl = document.createElement('span');
+            tagEl.className = 'text-tag';
+            tagEl.textContent = `#${tag}`;
+            tagsEl.appendChild(tagEl);
+          });
+        }
+
+        return fetch(`/posts/${slug}.md`);
+      })
+      .then(res => {
+        if (!res || !res.ok) throw new Error('Markdown not found');
+        return res.text();
+      })
+      .then(md => {
+        if (contentEl) {
+          if (typeof marked !== 'undefined') {
+            contentEl.innerHTML = marked.parse(md);
+          } else {
+            contentEl.textContent = md;
+          }
+        }
+      })
+      .catch(err => {
+        console.error('Failed to load post:', err);
+        if (contentEl && !contentEl.innerHTML) {
+          contentEl.innerHTML = '<div class="post-not-found">Failed to load post content.</div>';
+        }
+      });
+  }
+
+  function handleRoute() {
+    const slug = getSlug();
+    if (slug) {
+      showReaderView(slug);
+    } else {
+      showListView();
+    }
+  }
+
+  // --- Back button intercept (go to list without page reload) ---
+  const backBtn = document.querySelector('.back-button-float');
+  if (backBtn) {
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      history.pushState(null, '', '/post/');
+      handleRoute();
+    });
+  }
+
+  // --- Listen for hash changes ---
+  window.addEventListener('hashchange', handleRoute);
+  window.addEventListener('popstate', handleRoute);
+
+  // --- Post List Rendering ---
   const postListEl = document.getElementById('post-list');
   if (postListEl) {
     fetch('/posts/posts.json')
       .then(res => res.json())
       .then(posts => {
-        // Sort by date descending
         posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         posts.forEach(post => {
           const item = document.createElement('a');
-          item.href = `/post/post.html?slug=${post.slug}`;
+          item.href = `/post/#${post.slug}`;
           item.className = 'post-item';
 
           const title = document.createElement('div');
@@ -139,69 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // --- Post Reader Rendering (for /post/post.html) ---
-  const postContainer = document.getElementById('post-content');
-  if (postContainer) {
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get('slug');
-
-    if (!slug) {
-      postContainer.innerHTML = '<div class="post-not-found">No post specified.</div>';
-      return;
-    }
-
-    fetch('/posts/posts.json')
-      .then(res => res.json())
-      .then(posts => {
-        const post = posts.find(p => p.slug === slug);
-        if (!post) {
-          postContainer.innerHTML = '<div class="post-not-found">Post not found.</div>';
-          return;
-        }
-
-        // Set title and date
-        const titleEl = document.getElementById('post-title');
-        const dateEl = document.getElementById('post-date');
-        const tagsEl = document.getElementById('post-tags');
-
-        if (titleEl) titleEl.textContent = post.title;
-        if (dateEl) dateEl.textContent = formatDate(post.date);
-
-        // Set page title
-        document.title = `${post.title} — Edo Putra`;
-
-        // Render tags
-        if (tagsEl) {
-          post.tags.forEach(tag => {
-            const tagEl = document.createElement('span');
-            tagEl.className = 'text-tag';
-            tagEl.textContent = `#${tag}`;
-            tagsEl.appendChild(tagEl);
-          });
-        }
-
-        // Fetch and render markdown
-        return fetch(`/posts/${slug}.md`);
-      })
-      .then(res => {
-        if (!res || !res.ok) throw new Error('Markdown not found');
-        return res.text();
-      })
-      .then(md => {
-        if (typeof marked !== 'undefined') {
-          postContainer.innerHTML = marked.parse(md);
-        } else {
-          postContainer.textContent = md;
-        }
-      })
-      .catch(err => {
-        console.error('Failed to load post:', err);
-        if (!postContainer.innerHTML) {
-          postContainer.innerHTML = '<div class="post-not-found">Failed to load post content.</div>';
-        }
-      });
-  }
-
   // --- SVG Grid Animation (from script.js) ---
   const allSVGs = [
     'ep01.svg','ep02.svg','ep03.svg','ep04.svg','ep05.svg',
@@ -225,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   Promise.all(preloadPromises)
     .then(() => {
-      // slotC - constant 250ms
       const slotC = document.getElementById('slotC');
       if (slotC) {
         const img = document.createElement('img');
@@ -235,7 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(() => { img.src = `/assets/svgs/${getRandomSVG()}`; }, 250);
       }
 
-      // slotA - alternates between 70ms and 300ms every 3s
       const slotA = document.getElementById('slotA');
       if (slotA) {
         const img = document.createElement('img');
@@ -256,7 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
       }
 
-      // slotB - alternates between 400ms and 800ms every 2s
       const slotB = document.getElementById('slotB');
       if (slotB) {
         const img = document.createElement('img');
@@ -280,4 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(err => {
       console.error('Failed to load some SVGs:', err);
     });
+
+  // --- Initial route ---
+  handleRoute();
 });
