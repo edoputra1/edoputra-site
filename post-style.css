@@ -239,6 +239,16 @@ body.post-reader .sidebar-fixed {
   display: block;
 }
 
+.post-reader-content iframe {
+  max-width: 100%;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+  display: block;
+  border: none;
+  border-radius: 4px;
+}
+
 .post-reader-content a {
   color: var(--color-cyan);
   text-decoration: none;

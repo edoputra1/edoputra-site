@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        return fetch(`/posts/${slug}.md`);
+        return fetch(`/posts/${slug}/index.md`);
       })
       .then(res => {
         if (!res || !res.ok) throw new Error('Markdown not found');

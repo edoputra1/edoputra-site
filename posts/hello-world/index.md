@@ -21,11 +21,17 @@ Here's a photo — using the showreel poster as a test:
 
 ![Showreel poster](/assets/img/showreel.jpg)
 
-## Video Test
+## Video Test (local file)
 
-And here's an embedded video:
+A video hosted in the repo:
 
 <video src="/assets/mp4/showreel.mp4" controls playsinline muted></video>
+
+## Video Test (YouTube)
+
+A YouTube embed:
+
+<iframe src="https://www.youtube.com/embed/RS9abpks5Lw" allowfullscreen></iframe>
 
 ## That's It
 
