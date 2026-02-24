@@ -15,6 +15,18 @@ Here's a list of topics I might cover:
 - Remote work from Yogyakarta
 - Helldivers 2 strategy guides (maybe)
 
+## Image Test
+
+Here's a photo — using the showreel poster as a test:
+
+![Showreel poster](/assets/img/showreel.jpg)
+
+## Video Test
+
+And here's an embedded video:
+
+<video src="/assets/mp4/showreel.mp4" controls playsinline muted></video>
+
 ## That's It
 
 More posts coming soon. Or not. We'll see.
