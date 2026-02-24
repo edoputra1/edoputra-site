@@ -201,4 +201,83 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
   }
+
+  // --- SVG Grid Animation (from script.js) ---
+  const allSVGs = [
+    'ep01.svg','ep02.svg','ep03.svg','ep04.svg','ep05.svg',
+    'ep06.svg','ep07.svg','ep08.svg','ep09.svg','ep10.svg',
+    'ep11.svg','ep12.svg','ep13.svg','ep14.svg','ep15.svg',
+    'ep16.svg','ep17.svg','ep18.svg'
+  ];
+
+  function getRandomSVG() {
+    return allSVGs[Math.floor(Math.random() * allSVGs.length)];
+  }
+
+  const preloadPromises = allSVGs.map(src => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(src);
+      img.onerror = () => reject(src);
+      img.src = `/assets/svgs/${src}`;
+    });
+  });
+
+  Promise.all(preloadPromises)
+    .then(() => {
+      // slotC - constant 250ms
+      const slotC = document.getElementById('slotC');
+      if (slotC) {
+        const img = document.createElement('img');
+        img.alt = '';
+        img.src = `/assets/svgs/${getRandomSVG()}`;
+        slotC.appendChild(img);
+        setInterval(() => { img.src = `/assets/svgs/${getRandomSVG()}`; }, 250);
+      }
+
+      // slotA - alternates between 70ms and 300ms every 3s
+      const slotA = document.getElementById('slotA');
+      if (slotA) {
+        const img = document.createElement('img');
+        img.width = 80; img.height = 80; img.alt = '';
+        img.src = `/assets/svgs/${getRandomSVG()}`;
+        slotA.appendChild(img);
+
+        let currentInterval = 70;
+        let intervalId;
+        const startInterval = (speed) => {
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(() => { img.src = `/assets/svgs/${getRandomSVG()}`; }, speed);
+        };
+        startInterval(70);
+        setInterval(() => {
+          currentInterval = currentInterval === 70 ? 300 : 70;
+          startInterval(currentInterval);
+        }, 3000);
+      }
+
+      // slotB - alternates between 400ms and 800ms every 2s
+      const slotB = document.getElementById('slotB');
+      if (slotB) {
+        const img = document.createElement('img');
+        img.width = 80; img.height = 80; img.alt = '';
+        img.src = `/assets/svgs/${getRandomSVG()}`;
+        slotB.appendChild(img);
+
+        let currentInterval = 400;
+        let intervalId;
+        const startInterval = (speed) => {
+          if (intervalId) clearInterval(intervalId);
+          intervalId = setInterval(() => { img.src = `/assets/svgs/${getRandomSVG()}`; }, speed);
+        };
+        startInterval(400);
+        setInterval(() => {
+          currentInterval = currentInterval === 400 ? 800 : 400;
+          startInterval(currentInterval);
+        }, 2000);
+      }
+    })
+    .catch(err => {
+      console.error('Failed to load some SVGs:', err);
+    });
 });
