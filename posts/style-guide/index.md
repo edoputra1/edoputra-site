@@ -155,6 +155,18 @@ Use an iframe for YouTube. Full-width, 16:9 aspect ratio, rounded corners.
 
 ---
 
+## Pattern Divider
+
+An animated diagonal pattern strip. Full-width, fixed height. Use as a decorative section break.
+
+```
+<div class="pattern-break"></div>
+```
+
+<div class="pattern-break"></div>
+
+---
+
 ## Table
 
 | Element | Markdown | Renders as |
@@ -214,3 +226,4 @@ Here's a quick example of color tokens:
 | Horizontal rule | `---` |
 | Local video | `<video src="path" controls></video>` |
 | YouTube | `<iframe src="youtube-embed-url" allowfullscreen></iframe>` |
+| Pattern divider | `<div class="pattern-break"></div>` |
