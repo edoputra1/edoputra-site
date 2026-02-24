@@ -167,6 +167,34 @@ An animated diagonal pattern strip. Full-width, fixed height. Use as a decorativ
 
 ---
 
+## CTA Button
+
+A styled call-to-action button with diagonal shadow animation. Hugs content width. Wrap the link in a `post-cta-wrap` div for the diagonal shadow.
+
+```
+<div class="post-cta-wrap">
+  <a class="post-cta" href="https://edoputra.com">Back to Home ↗</a>
+</div>
+```
+
+<div class="post-cta-wrap">
+  <a class="post-cta" href="https://edoputra.com">Back to Home ↗</a>
+</div>
+
+Dark variant — use `post-cta post-cta-dark` for a black button with subtle border.
+
+```
+<div class="post-cta-wrap">
+  <a class="post-cta post-cta-dark" href="mailto:hi.edoputra@gmail.com">Let's talk ↗</a>
+</div>
+```
+
+<div class="post-cta-wrap">
+  <a class="post-cta post-cta-dark" href="mailto:hi.edoputra@gmail.com">Let's talk ↗</a>
+</div>
+
+---
+
 ## Table
 
 | Element | Markdown | Renders as |
@@ -227,3 +255,5 @@ Here's a quick example of color tokens:
 | Local video | `<video src="path" controls></video>` |
 | YouTube | `<iframe src="youtube-embed-url" allowfullscreen></iframe>` |
 | Pattern divider | `<div class="pattern-break"></div>` |
+| CTA button | `<div class="post-cta-wrap"><a class="post-cta" href="url">Label ↗</a></div>` |
+| CTA dark | `<div class="post-cta-wrap"><a class="post-cta post-cta-dark" href="url">Label ↗</a></div>` |

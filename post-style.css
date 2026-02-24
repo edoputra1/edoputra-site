@@ -99,12 +99,9 @@ body.post-reader .sidebar-fixed {
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  color: var(--color-blue);
+  color: var(--color-white);
   text-decoration: none;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--color-blue);
   transition: background 0.2s ease;
 }
 .back-button-float:hover {
@@ -117,14 +114,13 @@ body.post-reader .sidebar-fixed {
 }
 
 .post-container {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 10vh 2rem;
 }
 
 .post-reader-title {
-  font-size: 3rem;
-  font-weight: 400;
+  font-size: 5rem;
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
@@ -132,43 +128,42 @@ body.post-reader .sidebar-fixed {
 
 .post-reader-date {
   font-family: var(--font-mono);
-  font-size: 0.825rem;
+  font-size: 1.125rem;
   color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .post-reader-content {
+  padding: 1rem 0;
   margin-bottom: 3rem;
 }
 
 /* Markdown rendered content */
 .post-reader-content h1 {
   font-size: 2.5rem;
-  font-weight: 400;
   line-height: 1.2;
-  margin: 3rem 0 1.5rem;
+  margin: 4rem 0 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .post-reader-content h2 {
   font-size: 2rem;
-  font-weight: 400;
   line-height: 1.25;
   margin: 2.5rem 0 1.25rem;
   letter-spacing: -0.01em;
 }
 
 .post-reader-content h3 {
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
   line-height: 1.3;
   margin: 2rem 0 1rem;
 }
 
 .post-reader-content p {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   line-height: 1.75;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .post-reader-content ul,
@@ -183,12 +178,22 @@ body.post-reader .sidebar-fixed {
   margin-bottom: 0.5rem;
 }
 
+.post-reader-content li::marker {
+  color: var(--color-cyan);
+}
+
 .post-reader-content blockquote {
-  border-left: 3px solid var(--color-blue);
-  padding-left: 1.5rem;
+  border-left: 4px solid var(--color-blue);
+  padding: 1rem 0 0.75rem 1.5rem;
   margin: 2rem 0;
   color: rgba(255, 255, 255, 0.7);
-  font-style: italic;
+}
+
+.post-reader-content blockquote p {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
 }
 
 .post-reader-content code {
@@ -239,6 +244,13 @@ body.post-reader .sidebar-fixed {
   border-radius: 4px;
 }
 
+.post-reader-content hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 3rem 0;
+}
+
 .post-reader-content a {
   color: var(--color-cyan);
   text-decoration: none;
@@ -263,8 +275,10 @@ body.post-reader .sidebar-fixed {
 /* --- Pattern Divider (use <div class="pattern-break"></div> in markdown) --- */
 .post-reader-content .pattern-break {
   width: 100%;
-  height: 4rem;
-  margin: 2.5rem 0;
+  height: 8rem;
+  margin: 8rem 0;
+  background-clip: content-box;
+  display: block;
   background: repeating-linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.12) 0px,
@@ -275,6 +289,68 @@ body.post-reader .sidebar-fixed {
   background-size: 20px 20px;
   animation: slide-diagonal 4s linear infinite;
   pointer-events: none;
+}
+
+/* --- CTA Button (use <a class="post-cta" href="...">Label ↗</a> in markdown) --- */
+.post-reader-content .post-cta-wrap {
+  position: relative;
+  display: inline-block;
+  margin: 1.5rem 0 3rem 0;
+}
+
+.post-reader-content .post-cta-wrap::after {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  right: -1.5rem;
+  bottom: -1.5rem;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.post-reader-content .post-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--color-blue);
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s ease, outline 0.2s ease;
+}
+
+.post-reader-content .post-cta:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+  outline: 4px solid var(--color-blue);
+  outline-offset: 1px;
+}
+
+.post-reader-content .post-cta-dark {
+  background: var(--color-black);
+  outline: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.post-reader-content .post-cta-dark:hover {
+  outline: 4px solid var(--color-blue);
 }
 
 /* --- Post Not Found --- */

@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.title = `${post.title} — Edo Putra`;
 
         if (tagsEl) {
+          tagsEl.innerHTML = '';
           post.tags.forEach(tag => {
             const tagEl = document.createElement('span');
             tagEl.className = 'text-tag';
@@ -215,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(posts => {
         posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        posts.forEach(post => {
+        posts.filter(p => !p.draft).forEach(post => {
           const item = document.createElement('a');
           item.href = `/post/#${post.slug}`;
           item.className = 'post-item';
