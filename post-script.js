@@ -240,10 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
             tags.appendChild(tagEl);
           });
 
-          meta.appendChild(date);
-          meta.appendChild(tags);
+          item.appendChild(date);
           item.appendChild(title);
-          item.appendChild(meta);
+          item.appendChild(tags);
           postListEl.appendChild(item);
         });
       })
