@@ -362,8 +362,20 @@ body.post-reader .sidebar-fixed {
 
 /* --- Mobile overrides --- */
 @media (max-width: 768px) {
+  html {font-size: 14px;
+  }
+
   .post-item-title {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
+  }
+
+   .post-date {
+    font-size: 1.25rem;
+  }
+
+  .post-item .text-tag {
+    font-size: 0.875rem;
+    padding: 0.75rem 0.75rem;
   }
 
   body.post-reader {
@@ -375,7 +387,7 @@ body.post-reader .sidebar-fixed {
   }
 
   .post-reader-title {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
   }
 
   .back-button-float {
