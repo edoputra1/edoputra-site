@@ -220,18 +220,15 @@ document.addEventListener('DOMContentLoaded', () => {
           item.href = `/post/#${post.slug}`;
           item.className = 'post-item';
 
+          const date = document.createElement('div');
+          date.className = 'post-date';
+          date.textContent = formatDate(post.date);
+
           const title = document.createElement('div');
           title.className = 'post-item-title';
           title.textContent = post.title;
 
-          const meta = document.createElement('div');
-          meta.className = 'post-meta';
-
-          const date = document.createElement('span');
-          date.className = 'post-date';
-          date.textContent = formatDate(post.date);
-
-          const tags = document.createElement('span');
+          const tags = document.createElement('div');
           tags.className = 'post-tags';
           post.tags.forEach(tag => {
             const tagEl = document.createElement('span');
