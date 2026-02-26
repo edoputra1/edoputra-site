@@ -115,8 +115,14 @@ body.post-reader .sidebar-fixed {
 
 .post-container {
   max-width: 720px;
-  margin: 0 auto;
-  padding: 10vh 2rem;
+  margin: 0;
+  padding: 3rem;
+}
+
+@media (min-width: 769px) {
+  .post-container {
+    padding: 5rem;
+  }
 }
 
 .post-reader-title {
@@ -365,6 +371,10 @@ body.post-reader .sidebar-fixed {
   html {font-size: 14px;
   }
 
+  .post-container {
+    padding-top: 5rem;
+  }
+
   .post-item-title {
     font-size: 2.5rem;
   }
@@ -380,10 +390,6 @@ body.post-reader .sidebar-fixed {
 
   body.post-reader {
     padding: 0;
-  }
-
-  .post-container {
-    padding: 5vh 5vw;
   }
 
   .post-reader-title {
