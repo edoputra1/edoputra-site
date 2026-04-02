@@ -25,7 +25,7 @@ I don't have it all figured out. I'm not pretending I do. But here's what I know
 
 <div class="pattern-break"></div>
 
-### TL;DR
+## TL;DR
 
 - Done chasing corporate jobs
 - Going fully independent

@@ -53,7 +53,7 @@ And yes, ChatGPT assisted me a lot. Call it vibecoding if you want. What you’r
 
 <div class="pattern-break"></div>
 
-### TL;DR
+## TL;DR
 
 - Got laid off  
 - Vacation mood ruined  
@@ -61,6 +61,6 @@ And yes, ChatGPT assisted me a lot. Call it vibecoding if you want. What you’r
 - Pivot mode activated  
 - Built my own site  
 
-### Next?
+## Next?
 - Job hunting?
 - Building product?

@@ -32,7 +32,7 @@ And I feel it too.
 
 <div class="pattern-break"></div>
 
-### TL;DR
+## TL;DR
 
 - A group of former teammates turned makers  
 - Bound by faith, design, and love for digital craft  
@@ -40,7 +40,7 @@ And I feel it too.
 - Experimenting with vibecoding  
 - Building small, meaningful things
 
-### Next?
+## Next?
 
 - Document the vibecoding reality (cost, limits, workflow)
 - Ship something tiny but real
