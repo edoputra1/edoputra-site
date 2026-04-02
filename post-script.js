@@ -175,6 +175,21 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             contentEl.textContent = md;
           }
+
+          // Wrap images with diagonal-grid placeholder
+          contentEl.querySelectorAll('img').forEach(img => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'img-placeholder';
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+
+            if (img.complete && img.naturalWidth > 0) {
+              wrapper.classList.add('loaded');
+            } else {
+              img.addEventListener('load', () => wrapper.classList.add('loaded'));
+              img.addEventListener('error', () => wrapper.classList.add('loaded'));
+            }
+          });
         }
       })
       .catch(err => {

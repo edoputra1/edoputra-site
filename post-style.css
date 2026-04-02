@@ -225,12 +225,41 @@ body.post-reader .sidebar-fixed {
   line-height: 1.6;
 }
 
-.post-reader-content img {
+.post-reader-content .img-placeholder {
+  position: relative;
+  margin: 5rem 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+  min-height: 200px;
+}
+
+.post-reader-content .img-placeholder.loaded {
+  background: none;
+  animation: none;
+  min-height: 0;
+}
+
+.post-reader-content .img-placeholder img {
   max-width: 100%;
   height: auto;
   border-radius: 4px;
-  margin: 5rem 0;
   display: block;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.post-reader-content .img-placeholder.loaded img {
+  opacity: 1;
 }
 
 .post-reader-content video {
