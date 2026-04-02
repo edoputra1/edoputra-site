@@ -83,6 +83,7 @@
     let lenis;
 
     function initLenis() {
+      if (typeof Lenis === 'undefined') return;
       const isDesktop = window.matchMedia('(min-width: 768px)').matches;
       if (isDesktop && !window.location.hash) {
         lenis = new Lenis({
@@ -103,7 +104,7 @@
       }
     }
 
-    initLenis();
+    window.addEventListener('DOMContentLoaded', initLenis);
   </script>
 </body>
 
