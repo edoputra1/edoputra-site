@@ -84,8 +84,11 @@
 
     function initLenis() {
       if (typeof Lenis === 'undefined') return;
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
-      if (isDesktop && !window.location.hash) {
+      if (window.location.hash) return;
+      if (document.body.classList.contains('post-reader')) return;
+      destroyLenis();
+      var isDesktop = window.matchMedia('(min-width: 768px)').matches;
+      if (isDesktop) {
         lenis = new Lenis({
           orientation: 'horizontal',
           gestureOrientation: 'both',
