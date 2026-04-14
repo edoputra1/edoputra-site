@@ -1,5 +1,15 @@
 [
   {
+    "slug": "welcome-sazabi",
+    "title": "Welcome, Sazabi",
+    "date": "2026-04-14",
+    "tags": [
+      "hobby",
+      "gunpla"
+    ],
+    "draft": false
+  },
+  {
     "slug": "april-no-more-9-to-5",
     "title": "April, No More 9 to 5",
     "date": "2026-04-02",
