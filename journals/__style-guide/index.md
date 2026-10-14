@@ -85,7 +85,7 @@ Here's another link to [Google](https://google.com) just to show multiple links 
 
 ## Inline Code
 
-Use the `formatDate()` function to convert dates. You can also reference variables like `posts.json` or CSS classes like `.post-reader-content` inline.
+Use the `formatDate()` function to convert dates. You can also reference variables like `journals.json` or CSS classes like `.post-reader-content` inline.
 
 ---
 
@@ -136,7 +136,7 @@ Standard markdown image syntax. Full-width, rounded corners.
 Use raw HTML for local video files. Good for clips under 5MB.
 
 ```
-<video src="/posts/your-post/demo.mp4" controls playsinline muted></video>
+<video src="/journals/your-post/demo.mp4" controls playsinline muted></video>
 ```
 
 <video src="/assets/mp4/showreel.mp4" controls playsinline muted></video>

@@ -1,4 +1,4 @@
-![Post image](/posts/rough-start/post-img.jpg)
+![Post image](/journals/rough-start/post-img.jpg)
 
 # It Happens
 

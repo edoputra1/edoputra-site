@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 // --- Config ---
-const POSTS_DIR = path.join(__dirname, 'posts');
-const JSON_PATH = path.join(POSTS_DIR, 'posts.json');
+const POSTS_DIR = path.join(__dirname, 'journals');
+const JSON_PATH = path.join(POSTS_DIR, 'journals.json');
 
 // --- Helpers ---
 function slugify(title) {
@@ -30,9 +30,9 @@ const title = process.argv[2];
 const tagsArg = process.argv[3];
 
 if (!title) {
-  console.log('\n  Usage: node new-post.js "Post Title" tag1,tag2,tag3 [--draft]\n');
-  console.log('  Example: node new-post.js "Why I Left Figma" design,tools');
-  console.log('  Example: node new-post.js "WIP Post" ideas --draft\n');
+  console.log('\n  Usage: node new-journal.js "Post Title" tag1,tag2,tag3 [--draft]\n');
+  console.log('  Example: node new-journal.js "Why I Left Figma" design,tools');
+  console.log('  Example: node new-journal.js "WIP Post" ideas --draft\n');
   process.exit(1);
 }
 
@@ -46,19 +46,19 @@ let posts = [];
 try {
   posts = JSON.parse(fs.readFileSync(JSON_PATH, 'utf-8'));
 } catch {
-  console.error('  ✗ Could not read posts.json');
+  console.error('  ✗ Could not read journals.json');
   process.exit(1);
 }
 
 // --- Check for duplicates ---
 if (posts.find(p => p.slug === slug)) {
-  console.error(`\n  ✗ Slug "${slug}" already exists in posts.json\n`);
+  console.error(`\n  ✗ Slug "${slug}" already exists in journals.json\n`);
   process.exit(1);
 }
 
 const folderPath = path.join(POSTS_DIR, slug);
 if (fs.existsSync(folderPath)) {
-  console.error(`\n  ✗ Folder already exists: posts/${slug}/\n`);
+  console.error(`\n  ✗ Folder already exists: journals/${slug}/\n`);
   process.exit(1);
 }
 
@@ -69,7 +69,7 @@ fs.writeFileSync(
   `Start writing here.\n`
 );
 
-// --- Add to posts.json (newest first) ---
+// --- Add to journals.json (newest first) ---
 const entry = { slug, title, date, tags, draft: isDraft };
 posts.unshift(entry);
 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -77,7 +77,7 @@ fs.writeFileSync(JSON_PATH, JSON.stringify(posts, null, 2) + '\n');
 
 // --- Done ---
 console.log(`
-  ✓ Post created
+  ✓ Journal entry created
 
   Title:  ${title}
   Slug:   ${slug}
@@ -85,9 +85,9 @@ console.log(`
   Tags:   ${tags.length ? tags.map(t => '#' + t).join(' ') : '(none)'}
   Draft:  ${isDraft ? 'yes (hidden from site)' : 'no (live)'}
 
-  Folder: posts/${slug}/
-  File:   posts/${slug}/index.md
-  URL:    /post/#${slug}
+  Folder: journals/${slug}/
+  File:   journals/${slug}/index.md
+  URL:    /journal/#${slug}
 
-  Next: write your post in posts/${slug}/index.md, then git push.
+  Next: write your post in journals/${slug}/index.md, then git push.
 `);

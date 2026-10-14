@@ -1,4 +1,4 @@
-![Post image](/posts/april-no-more-9-to-5/post-img.jpg)
+![Post image](/journals/april-no-more-9-to-5/post-img.jpg)
 
 # On My Own Two Feet
 

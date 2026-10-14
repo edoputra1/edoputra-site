@@ -1,4 +1,4 @@
-![Post image](/posts/welcome-sazabi/post-img.jpg)
+![Post image](/journals/welcome-sazabi/post-img.jpg)
 
 # Big-Red-Chonky-Boi Is (Finally) Done!
 
@@ -12,7 +12,7 @@ Gemini said it better, Sazabi is often described as a "Perfect Grade masqueradin
 
 ---
 
-![Sazabi comparison](/posts/welcome-sazabi/img-1.jpg)
+![Sazabi comparison](/journals/welcome-sazabi/img-1.jpg)
 
 It took me a while to finish this one — not just because it's complex, but also because I couldn't focus on it in one sitting. Between office work and freelance stuff, it kept getting pushed aside. But now that I've finally had some free time (all the free time, lol), I managed to complete it.
 
@@ -20,13 +20,13 @@ It's also the most expensive out of the three. And yeah, it shows. The detailing
 
 ---
 
-![Sazabi build](/posts/welcome-sazabi/img-2.jpg)
+![Sazabi build](/journals/welcome-sazabi/img-2.jpg)
 
 It's also the tallest of the bunch, which isn't surprising considering the box size. It's got some weight to it too — it stands really well on its own without any issues, unlike the Lindwurm.
 
 I did a bit of painting on the weapons — added some yellow and red to break up the gray — and it turned out pretty decent. Definitely makes me want to invest in an airbrush for a cleaner finish next time.
 
-![Sazabi legs](/posts/welcome-sazabi/img-3.jpg)
+![Sazabi legs](/journals/welcome-sazabi/img-3.jpg)
 
 Char's mobile suit looks just as badass on my desk as it does in Char's Counterattack. Big, bold, and intimidating — exactly how it should be.
 

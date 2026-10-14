@@ -1,4 +1,4 @@
-![Post image](/posts/tinyshipsailors/post-img.jpg)
+![Post image](/journals/tinyshipsailors/post-img.jpg)
 
 # A Place for Makers
 
@@ -17,7 +17,7 @@ Are we starting a company? Maybe. Maybe not. We’re not interested in becoming 
 
 Personally, I dipped my toes into it by building a Tamagochi-esque desktop companion. I’m old school. Pixel art is a soft spot to me. And I wanted something small, something personal, something I’d actually use. It felt like a good place to start. Learning Xcode, learning Swift, exploring AI-first workflows. The access is wide open. The tools are here. The world really does feel like an oyster right now.
 
-![tinyPet — Work In Progress](/posts/tinyshipsailors/post-img2.jpg)
+![tinyPet — Work In Progress](/journals/tinyshipsailors/post-img2.jpg)
 
 Vibecoding, though, isn’t as effortless as some make it sound—this probably deserves its own post. It can be costly if you commit seriously. Sure, you can go the zero-cost route — but you’ll need monk-level patience when daily or weekly token limits hit. Not me. I’m not that zen 😪
 

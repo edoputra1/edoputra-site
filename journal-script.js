@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('post-reader');
     viewList.style.display = '';
     viewReader.style.display = 'none';
-    document.title = 'Posts — Edo Putra';
+    document.title = 'Journal — Edo Putra';
 
     // Re-init Lenis for horizontal scroll
     if (typeof initLenis === 'function') initLenis();
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tagsEl) tagsEl.innerHTML = '';
 
     // Fetch and render post
-    fetch('/posts/posts.json')
+    fetch('/journals/journals.json')
       .then(res => res.json())
       .then(posts => {
         const post = posts.find(p => p.slug === slug);
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        return fetch(`/posts/${slug}/index.md`);
+        return fetch(`/journals/${slug}/index.md`);
       })
       .then(res => {
         if (!res || !res.ok) throw new Error('Markdown not found');
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (backBtn) {
     backBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      history.pushState(null, '', '/post/');
+      history.pushState(null, '', '/journal/');
       handleRoute();
     });
   }
@@ -343,14 +343,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Post List Rendering ---
   const postListEl = document.getElementById('post-list');
   if (postListEl) {
-    fetch('/posts/posts.json')
+    fetch('/journals/journals.json')
       .then(res => res.json())
       .then(posts => {
         posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         posts.filter(p => !p.draft).forEach(post => {
           const item = document.createElement('a');
-          item.href = `/post/#${post.slug}`;
+          item.href = `/journal/#${post.slug}`;
           item.className = 'post-item';
 
           const date = document.createElement('div');
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(err => {
         console.error('Failed to load posts:', err);
-        postListEl.innerHTML = '<div class="post-not-found">Failed to load posts.</div>';
+        postListEl.innerHTML = '<div class="post-not-found">Failed to load journal.</div>';
       });
   }
 
