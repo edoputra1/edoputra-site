@@ -185,11 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (img.complete && img.naturalWidth > 0) {
               wrapper.classList.add('loaded');
-              zoom.enable(img);
+              window.imageZoom?.enable(img);
             } else {
               img.addEventListener('load', () => {
                 wrapper.classList.add('loaded');
-                zoom.enable(img);
+                window.imageZoom?.enable(img);
               });
               img.addEventListener('error', () => wrapper.classList.add('loaded'));
             }
@@ -222,119 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
       handleRoute();
     });
   }
-
-  // --- Image zoom (Medium-style, desktop only) ---
-  // Click a post image to grow it from its spot to the centre of the screen
-  // over a dark backdrop. Click, Esc or resize closes it; page scrolling is
-  // blocked while it's open so it always shrinks back to where it came from.
-  // A clone is animated (so the article layout never moves); images never
-  // shrink, so ones already as big as the screen allows just get the backdrop.
-  const zoom = (() => {
-    const desktopMq = window.matchMedia('(min-width: 769px) and (hover: hover)');
-    const DURATION = 300; // ms, keep in sync with .img-zoom-* transitions
-    const MARGIN = 40; // px around the zoomed image
-    const SCROLL_KEYS = [' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'];
-    const IMG_SELECTOR = '#post-content .img-placeholder.loaded img[role="button"]';
-
-    let overlay = null;
-    let current = null; // { img, clone }
-
-    function getOverlay() {
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'img-zoom-overlay';
-        overlay.addEventListener('click', close);
-        document.body.appendChild(overlay);
-      }
-      return overlay;
-    }
-
-    function targetTransform(rect, img) {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      // Fit inside the screen, but never past the image's own resolution
-      const maxW = Math.min(vw - MARGIN * 2, img.naturalWidth || Infinity);
-      const maxH = Math.min(vh - MARGIN * 2, img.naturalHeight || Infinity);
-      const scale = Math.max(1, Math.min(maxW / rect.width, maxH / rect.height));
-      const dx = vw / 2 - (rect.left + rect.width / 2);
-      const dy = vh / 2 - (rect.top + rect.height / 2);
-      return `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`;
-    }
-
-    function open(img) {
-      if (current || !desktopMq.matches) return;
-      const rect = img.getBoundingClientRect();
-      const clone = img.cloneNode();
-      ['tabindex', 'role', 'aria-label'].forEach((attr) => clone.removeAttribute(attr));
-      clone.className = 'img-zoom-clone';
-      Object.assign(clone.style, {
-        top: `${rect.top}px`,
-        left: `${rect.left}px`,
-        width: `${rect.width}px`,
-        height: `${rect.height}px`,
-      });
-      clone.addEventListener('click', close);
-      document.body.appendChild(clone);
-      img.style.visibility = 'hidden';
-      current = { img, clone };
-
-      const backdrop = getOverlay();
-      // Force a layout so the starting position is committed before animating
-      void clone.offsetWidth;
-      document.body.classList.add('img-zoom-open');
-      backdrop.classList.add('is-open');
-      clone.style.transform = targetTransform(rect, img);
-    }
-
-    function close() {
-      if (!current) return;
-      const { img, clone } = current;
-      current = null;
-      document.body.classList.remove('img-zoom-open');
-      overlay.classList.remove('is-open');
-      clone.style.transform = '';
-      setTimeout(() => {
-        img.style.visibility = '';
-        clone.remove();
-      }, DURATION);
-    }
-
-    // Open on click (or Enter/Space when focused) of a zoomable post image
-    document.addEventListener('click', (e) => {
-      const img = e.target.closest(IMG_SELECTOR);
-      if (img) open(img);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (current) {
-        if (e.key === 'Escape') close();
-        if (SCROLL_KEYS.includes(e.key)) e.preventDefault();
-        return;
-      }
-      const img = e.target.closest && e.target.closest(IMG_SELECTOR);
-      if (img && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault();
-        open(img);
-      }
-    });
-    // Block page scrolling while zoomed (no overflow: hidden, so the
-    // scrollbar doesn't disappear and shift the layout)
-    window.addEventListener('wheel', (e) => {
-      if (current) e.preventDefault();
-    }, { passive: false });
-    window.addEventListener('resize', close);
-    window.addEventListener('hashchange', close);
-    window.addEventListener('popstate', close);
-
-    // Make a loaded image zoomable (desktop only; images inside links stay links)
-    function enable(img) {
-      if (!desktopMq.matches || img.closest('a')) return;
-      img.tabIndex = 0;
-      img.setAttribute('role', 'button');
-      img.setAttribute('aria-label', `Enlarge image${img.alt ? `: ${img.alt}` : ''}`);
-    }
-
-    return { enable };
-  })();
 
   // --- Listen for hash changes ---
   window.addEventListener('hashchange', handleRoute);

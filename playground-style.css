@@ -1,0 +1,119 @@
+/* --- Playground (/playground) --- */
+body.playground {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+  padding: 0;
+}
+
+/* Text column, matching the journal entry layout (.post-container) */
+.playground-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 5rem 12rem;
+}
+
+.playground-container .text-large {
+  margin-bottom: 1rem;
+}
+
+.playground-meta {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.5);
+  min-height: 1.5em;
+  margin-bottom: 3rem;
+}
+
+.playground-container .divider {
+  margin: 0 0 3rem;
+}
+
+.playground-intro {
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 2rem;
+}
+
+.playground-intro--lead {
+  font-size: 2rem;
+  line-height: 1.4;
+  color: var(--color-white);
+}
+
+/* Staggered grid: columns are built by playground-script.js, which places
+   each shot in the currently shortest column so the order reads left to right */
+.shots {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem 5rem 10rem;
+}
+
+.shots-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Diagonal-grid placeholder while the image loads (same as journal images).
+   aspect-ratio is set inline from shots.json so nothing jumps on load. */
+.shot-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+}
+
+.shot-frame.loaded {
+  background: none;
+  animation: none;
+}
+
+.shot-frame img,
+.shot-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.shot-frame.loaded img,
+.shot-frame.loaded video {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .playground-container {
+    padding: 5rem 3rem 2rem;
+  }
+
+  .playground-container .text-large {
+    font-size: 3.5rem;
+  }
+
+  .playground-intro--lead {
+    font-size: 1.6rem;
+  }
+
+  .shots {
+    padding: 1rem 1.5rem 6rem;
+  }
+}

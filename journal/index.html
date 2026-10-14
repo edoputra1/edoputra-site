@@ -32,6 +32,7 @@
   <link rel="preload" href="/style.css" as="style">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/journal-style.css">
+  <link rel="stylesheet" href="/image-zoom.css">
 
   <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
@@ -49,7 +50,10 @@
       <div class="section-break">
         <a href="/" class="back-button" aria-label="Back to home"></a>
 
-        <h1 class="text-large">Journal</h1>
+        <h1 class="text-large"><span class="hero-mark">Journal<svg class="hero-dot"
+            viewBox="0 0 10 10" aria-hidden="true">
+            <circle cx="5" cy="5" r="5" />
+          </svg></span></h1>
         <h2 class="text-body">Nice, you found this little spot. A place to think out loud, document the process, and leave traces of the journey as it unfolds.</h2>
       </div>
 
@@ -78,6 +82,7 @@
     </article>
   </main>
 
+  <script src="/image-zoom.js" defer></script>
   <script src="/journal-script.js" defer></script>
   <script>
     let lenis;

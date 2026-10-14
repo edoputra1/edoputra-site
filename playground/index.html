@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Playground — Edo Putra</title>
+
+  <meta name="description" content="UI explorations, experiments, and screens by Edo Putra.">
+
+  <link rel="icon" href="/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="/assets/favicons/apple-touch-icon.png">
+
+  <meta property="og:title" content="Playground — Edo Putra">
+  <meta property="og:description" content="UI explorations, experiments, and screens.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edoputra.com/playground/">
+  <meta property="og:image" content="https://edoputra.com/assets/og/preview.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap">
+  </noscript>
+
+  <link rel="preload" href="/playground/shots.json" as="fetch" crossorigin>
+  <link rel="preload" href="/style.css" as="style">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/playground-style.css">
+  <link rel="stylesheet" href="/image-zoom.css">
+</head>
+
+<body class="playground">
+  <a href="/" class="back-button-float" aria-label="Back to home"></a>
+
+  <main>
+    <!-- Text column: same 720px width as a journal entry -->
+    <header class="playground-container">
+      <h1 class="text-large"><span class="hero-mark">Playground<svg class="hero-dot"
+            viewBox="0 0 10 10" aria-hidden="true">
+            <circle cx="5" cy="5" r="5" />
+          </svg></span></h1>
+      <div class="playground-meta" id="shots-meta" aria-live="polite"></div>
+      <div class="divider"></div>
+
+      <p class="playground-intro playground-intro--lead">A collection of quick visual experiments, UI concepts, logo designs, typography, and unrefined ideas. Some evolve into full-scale projects; others exist purely for the sake of exploring process, direction, and creative freedom.</p>
+      <p class="playground-intro">2026 — all rights reserved.</p>
+    </header>
+
+    <!-- Staggered grid: full screen width, not limited by the text column -->
+    <div id="shots" class="shots"></div>
+  </main>
+
+  <script src="/image-zoom.js" defer></script>
+  <script src="/playground-script.js" defer></script>
+</body>
+
+</html>

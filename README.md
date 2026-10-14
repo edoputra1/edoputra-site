@@ -40,6 +40,19 @@ python3 -m http.server 8000
 open http://localhost:8000
 ```
 
+## Playground (UI shots)
+
+`/playground` is a staggered grid of UI screenshots and short videos. There's no CMS; the list lives in `playground/shots.json`.
+
+1. Export the screenshot (JPG or WebP, ~2000px wide, ideally under 800 KB) or a short MP4 loop (no sound needed, ideally a few MB) and drop it into `playground/shots/`. Videos play muted on loop while they're on screen.
+2. Run `node build-playground.js`. New images are added to the top of `shots.json` with their size; deleted images are removed.
+3. Optionally edit `playground/shots.json`:
+   - reorder entries to change the order on the page (it reads left to right),
+   - add `"hidden": true` to hide a shot without deleting it.
+4. `git push`.
+
+Re-running the build script keeps your order and hidden flags.
+
 ## Project Structure
 
 ```
