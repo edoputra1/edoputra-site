@@ -190,6 +190,11 @@ body {
   break-before: column;
 }
 
+/* Columns stacking under the next one (driven by script.js) */
+.section-break.is-pinned {
+  will-change: transform, clip-path, opacity, filter;
+}
+
 .text-large {
   font-size: 5rem;
   line-height: 1;
@@ -477,8 +482,14 @@ body {
   height: 100%;
   object-fit: cover;
   opacity: 0.55;
-  transition: opacity 0.3s ease;
-  will-change: opacity;
+  /* Frosted glass look by default (like the sidebar); clears on hover.
+     Blur is on the video itself rather than a backdrop-filter on the overlay,
+     because backdrop-filter stops working inside the pinned columns.
+     Slight scale hides the soft edges the blur creates. */
+  filter: blur(16px);
+  transform: scale(1.1);
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  will-change: opacity, filter, transform;
   appearance: none;
   -webkit-appearance: none;
   backface-visibility: hidden;
@@ -506,6 +517,8 @@ body {
 
 .showreel-card:hover .showreel-bg {
   opacity: 0.55;
+  filter: blur(0);
+  transform: scale(1);
 }
 
 .showreel-overlay {
@@ -518,23 +531,21 @@ body {
   justify-content: center;
   gap: 1.5rem;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.6);
-  transition: background 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
-}
-
-/* Frosted glass over the video by default (like the sidebar); clears on hover */
-@supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
-  .showreel-overlay {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(10px);
-  }
+  background: rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
 }
 
 .showreel-card:hover .showreel-overlay {
   background: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(0);
-  -webkit-backdrop-filter: blur(0);
+}
+
+/* Touch screens can't hover, so show the video without the glass blur */
+@media (hover: none), (max-width: 768px) {
+  .showreel-bg {
+    filter: none;
+    transform: none;
+    will-change: auto;
+  }
 }
 
 .showreel-title {
@@ -1160,10 +1171,41 @@ body.showreel-modal-open {
 
   .content-wrapper {
     height: auto;
+    /* Plain block layout (not a one-column multicol) so sections can be sticky */
     column-width: auto;
-    column-count: 1;
+    column-count: auto;
     column-gap: 0;
     column-rule: none;
+  }
+
+  /* Vertical stacking (driven by script.js): each section sticks once its
+     bottom reaches the bottom of the screen, or at the top if it's shorter
+     than the screen, and the next section slides over it. Spacing is padding
+     rather than margin so the solid background has no gaps to see through. */
+  .section-break.is-stacked {
+    position: sticky;
+    top: min(0px, calc(100vh - var(--stack-height, 0px)));
+    top: min(0px, calc(100svh - var(--stack-height, 0px)));
+    margin-bottom: 0;
+    padding-bottom: 4rem;
+    background: var(--color-black);
+  }
+
+  /* Breathing room above each section that slides over the previous one */
+  .section-break.is-stacked + .section-break.is-stacked {
+    padding-top: 4rem;
+  }
+
+  /* Darkening layer, faded in by script.js as the next section covers this one */
+  .section-break.is-stacked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: var(--color-black);
+    opacity: var(--stack-dim, 0);
+    pointer-events: none;
+    will-change: opacity;
   }
 
   .force-column {

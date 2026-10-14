@@ -16,6 +16,171 @@ if (isDesktop) {
   });
 }
 
+// Stacked columns: as you scroll, each column stops and the next one slides
+// over it (1 under 2 under 3, and so on), darkening as it gets covered.
+//
+// Desktop (horizontal): each column stops at column 1's position. A pinned
+// column is translated by however far it has scrolled past that position (so
+// it appears fixed) and clipped at the column rule before the next column.
+// Each top-level .section-break is one column; any that doesn't fit in a
+// single column scrolls normally.
+//
+// Mobile (vertical): sections use CSS position: sticky so pinning stays smooth
+// with native touch scrolling. A section sticks once its bottom reaches the
+// bottom of the screen (or at the top, if it's shorter than the screen); the
+// next section, which has a solid background, slides up over it. JS only
+// handles the darkening.
+const pinnedColumn = (() => {
+  const mobileMq = window.matchMedia('(max-width: 768px)');
+  let items = [];
+  let mode = null; // 'desktop' | 'mobile' | null
+  let pinLeft = 0;
+  // How dark/blurry a column gets once fully covered
+  const MAX_DIM = 0.5; // opacity drop over the black background
+  const MAX_BLUR = 10; // px
+  // Mobile: blur re-renders the whole section every scroll frame, which is
+  // heavy on phones, so it's off by default. Dimming (opacity) is cheap.
+  const MOBILE_MAX_DIM = 0.95;
+  const MOBILE_MAX_BLUR = 0; // px
+
+  function reset() {
+    items.forEach(({ el }) => {
+      el.classList.remove('is-pinned', 'is-stacked');
+      el.style.transform = '';
+      el.style.clipPath = '';
+      el.style.visibility = '';
+      el.style.opacity = '';
+      el.style.filter = '';
+      el.style.removeProperty('--stack-height');
+      el.style.removeProperty('--stack-dim');
+    });
+    items = [];
+    mode = null;
+  }
+
+  function setCovered(el, covered, maxDim, maxBlur) {
+    el.style.opacity = covered ? 1 - maxDim * covered : '';
+    el.style.filter = covered && maxBlur ? `blur(${(maxBlur * covered).toFixed(2)}px)` : '';
+  }
+
+  function updateDesktop() {
+    const x = window.scrollX;
+    items.forEach((item) => {
+      const natural = item.left - x;
+      const viewLeft = Math.max(pinLeft, natural);
+      // Distance from the column's left edge to the next column rule, on screen
+      const visible = item.edge - x - viewLeft;
+      if (visible <= 0) {
+        item.el.style.visibility = 'hidden';
+        return;
+      }
+      item.el.style.visibility = '';
+      item.el.style.transform = `translate3d(${viewLeft - natural}px, 0, 0)`;
+      // Only clip on the right, at the column rule; the other sides (and the
+      // right side, until the rule reaches it) stay open so things that hang
+      // outside the column, like the CTA's diagonal pattern, aren't cropped
+      item.el.style.clipPath = `inset(-100vh ${item.width - visible}px -100vh -100vw)`;
+      // Darken and blur as the next column covers this one (0 = uncovered, 1 = covered)
+      const covered = Math.min(1, Math.max(0, 1 - visible / item.width));
+      setCovered(item.el, covered, MAX_DIM, MAX_BLUR);
+    });
+  }
+
+  function updateMobile() {
+    const vh = window.innerHeight;
+    items.forEach(({ el, next }) => {
+      if (!next) return;
+      const rect = el.getBoundingClientRect();
+      const nextTop = next.getBoundingClientRect().top;
+      // How much of this section's on-screen part the next section now covers
+      const shown = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      let covered;
+      if (rect.top >= vh) covered = 0; // not on screen yet
+      else if (shown <= 0) covered = 1; // scrolled past
+      else covered = Math.min(1, Math.max(0, (rect.bottom - nextTop) / shown));
+      // Dim with a black layer over the section (see .is-stacked::after), not
+      // opacity: a translucent section would show the one stacked beneath it
+      el.style.setProperty('--stack-dim', (MOBILE_MAX_DIM * covered).toFixed(3));
+      el.style.filter = covered && MOBILE_MAX_BLUR ? `blur(${(MOBILE_MAX_BLUR * covered).toFixed(2)}px)` : '';
+    });
+  }
+
+  function update() {
+    if (!items.length || document.body.classList.contains('modal-open')) return;
+    if (mode === 'desktop') updateDesktop();
+    else if (mode === 'mobile') updateMobile();
+  }
+
+  function measureDesktop(wrapper, sections) {
+    const x = window.scrollX;
+    const gap = parseFloat(getComputedStyle(wrapper).columnGap) || 0;
+    const columnHeight = wrapper.clientHeight;
+    pinLeft = sections[0].getBoundingClientRect().left + x;
+
+    sections.forEach((el, i) => {
+      // Must sit in one column; if it overflows or splits, leave it alone
+      const fits = el.getClientRects().length === 1 && el.offsetHeight <= columnHeight;
+      if (!fits) return;
+      const rect = el.getBoundingClientRect();
+      const next = sections[i + 1];
+      items.push({
+        el,
+        left: rect.left + x,
+        width: rect.width,
+        edge: next ? next.getBoundingClientRect().left + x - gap / 2 : Infinity,
+      });
+      el.classList.add('is-pinned');
+    });
+    mode = 'desktop';
+  }
+
+  function measureMobile(sections) {
+    // Add the class first so the measured heights include its padding
+    sections.forEach((el) => el.classList.add('is-stacked'));
+    sections.forEach((el, i) => {
+      // CSS uses this to stick tall sections by their bottom edge
+      el.style.setProperty('--stack-height', `${el.offsetHeight}px`);
+      items.push({ el, next: sections[i + 1] });
+    });
+    mode = 'mobile';
+  }
+
+  function measure() {
+    reset();
+    const wrapper = document.querySelector('.content-wrapper');
+    if (!wrapper) return;
+    const sections = [...wrapper.querySelectorAll(':scope > .section-break')];
+    if (sections.length < 2) return;
+    if (mobileMq.matches) measureMobile(sections);
+    else measureDesktop(wrapper, sections);
+    update();
+  }
+
+  return { measure, update };
+})();
+
+window.addEventListener('load', pinnedColumn.measure);
+if (document.fonts) document.fonts.ready.then(pinnedColumn.measure);
+let pinnedResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(pinnedResizeTimer);
+  pinnedResizeTimer = setTimeout(pinnedColumn.measure, 150);
+});
+// Lenis drives scrolling on desktop; update in its frame to avoid jitter
+if (lenis) {
+  lenis.on('scroll', pinnedColumn.update);
+} else {
+  window.addEventListener('scroll', pinnedColumn.update, { passive: true });
+}
+// Mobile section heights can change after load (images, the rotating skill cards)
+if ('ResizeObserver' in window) {
+  let pinnedObserveTimer;
+  new ResizeObserver(() => {
+    clearTimeout(pinnedObserveTimer);
+    pinnedObserveTimer = setTimeout(pinnedColumn.measure, 150);
+  }).observe(document.querySelector('.content-wrapper') || document.body);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // Force video autoplay on mobile
