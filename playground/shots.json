@@ -120,10 +120,10 @@
     "v": "af703733"
   },
   {
-    "file": "indonesia.mp4",
-    "width": 670,
-    "height": 1080,
-    "v": "528310c9"
+    "file": "skate-2.mp4",
+    "width": 978,
+    "height": 720,
+    "v": "cf5c8a05"
   },
   {
     "file": "cidb.mp4",
@@ -132,10 +132,10 @@
     "v": "4a1e250e"
   },
   {
-    "file": "shape-sprouts.png",
-    "width": 2000,
-    "height": 1200,
-    "v": "7ed625e2"
+    "file": "stack-card.mp4",
+    "width": 1504,
+    "height": 1080,
+    "v": "f1946fd0"
   },
   {
     "file": "babyboss.jpg",
@@ -172,5 +172,23 @@
     "width": 1600,
     "height": 1124,
     "v": "5e7a3718"
+  },
+  {
+    "file": "shape-sprouts.png",
+    "width": 2000,
+    "height": 1200,
+    "v": "7ed625e2"
+  },
+  {
+    "file": "indonesia.mp4",
+    "width": 670,
+    "height": 1080,
+    "v": "528310c9"
+  },
+  {
+    "file": "skate-1.mp4",
+    "width": 978,
+    "height": 720,
+    "v": "d0268f02"
   }
 ]
