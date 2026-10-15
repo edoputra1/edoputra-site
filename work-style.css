@@ -1,0 +1,296 @@
+/* --- Work (/work/ and /work/<slug>/) --- */
+
+/* /work/: vertical page like the playground */
+body.work-index {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+  padding: 0;
+}
+
+/* Text column, matching the journal entry layout (.post-container) */
+.work-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 5rem 4rem;
+}
+
+.work-container .text-large {
+  margin-bottom: 1rem;
+}
+
+.work-meta {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.5);
+  min-height: 1.5em;
+  margin-bottom: 3rem;
+}
+
+.work-container .divider {
+  margin: 0 0 3rem;
+}
+
+.work-intro {
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 2rem;
+}
+
+.work-intro--lead {
+  font-size: 2rem;
+  line-height: 1.4;
+  color: var(--color-white);
+}
+
+/* Staggered grid: columns are built by work-script.js, which places each card
+   in the currently shortest column so the order reads left to right */
+.works {
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 5rem 10rem;
+  box-sizing: content-box;
+}
+
+.works-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.work-card {
+  display: block;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+/* Cover with the diagonal placeholder while it loads (same as playground tiles);
+   aspect-ratio comes from works.json so nothing jumps on load */
+.work-card-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+}
+
+.work-card-cover.loaded {
+  background: none;
+  animation: none;
+}
+
+.work-card-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.work-card-cover.loaded img {
+  opacity: 1;
+}
+
+/* Zoom + tilt inside the fixed frame on hover. The zoom has to grow with the
+   angle so the rotated image still covers the frame's corners: 1.3x covers a
+   10deg tilt for covers up to 16:9 (15deg would need ~1.43x). */
+.work-card:hover .work-card-cover img {
+  transform: scale(1.3) rotate(10deg);
+}
+
+.work-card-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.work-card:hover .work-card-title {
+  color: var(--color-cyan);
+}
+
+.work-card-description {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+}
+
+.work-card-tags,
+.work-page-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* /work/<slug>/: case study page (article styles come from journal-style.css) */
+.work-page-description {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.work-page-tags {
+  margin-bottom: 3rem;
+}
+
+/* Cover breaks out of the 720px text column to the same width as the
+   case study galleries (up to 1280px), centred on the page */
+.work-page-cover {
+  --cover-width: min(1280px, calc(100vw - 10rem));
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  width: var(--cover-width);
+  margin: 80px 0 80px calc((100% - var(--cover-width)) / 2);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+}
+
+.work-page-cover.loaded {
+  background: none;
+  animation: none;
+}
+
+.work-page-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.work-page-cover.loaded img {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .work-container {
+    padding: 5rem 3rem 2rem;
+  }
+
+  .work-container .text-large {
+    font-size: 3.5rem;
+  }
+
+  .work-intro--lead {
+    font-size: 1.6rem;
+  }
+
+  .works {
+    padding: 1rem 1.5rem 6rem;
+    gap: 3rem;
+  }
+
+  .works-col {
+    gap: 3rem;
+  }
+
+  .work-card-title {
+    font-size: 2rem;
+  }
+}
+
+/* Case study galleries: images on consecutive lines in index.md become a wide
+   staggered grid that breaks out of the 720px text column (built by work-script.js) */
+.post-reader-content .case-gallery {
+  --gallery-width: min(1280px, calc(100vw - 10rem));
+  width: var(--gallery-width);
+  margin: 64px 0 64px calc((100% - var(--gallery-width)) / 2);
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.case-gallery-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Diagonal placeholder until loaded; aspect-ratio comes from the image list */
+.case-gallery-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  min-height: 120px;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 1px,
+    transparent 14px
+  );
+  background-size: 20px 20px;
+  animation: slide-diagonal 4s linear infinite;
+}
+
+.case-gallery-tile.loaded {
+  min-height: 0;
+  background: none;
+  animation: none;
+}
+
+.case-gallery-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.case-gallery-tile.loaded img {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .work-page-cover {
+    --cover-width: calc(100vw - 3rem);
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+
+  .post-reader-content .case-gallery {
+    --gallery-width: calc(100vw - 3rem);
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    gap: 1.5rem;
+  }
+
+  .case-gallery-col {
+    gap: 1.5rem;
+  }
+}

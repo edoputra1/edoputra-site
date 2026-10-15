@@ -31,6 +31,66 @@
   cursor: zoom-out;
 }
 
+/* Stepping to the next image: fade it in where it lands */
+.img-zoom-clone.is-stepped {
+  animation: img-zoom-fade 0.25s ease;
+}
+@keyframes img-zoom-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Previous/next arrows + counter for grouped images (case studies) */
+.img-zoom-nav[hidden] {
+  display: none;
+}
+.img-zoom-prev,
+.img-zoom-next {
+  position: fixed;
+  top: 50%;
+  z-index: 2002;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-top: -1.5rem;
+  border: 0;
+  padding: 0;
+  color: var(--color-white);
+  background: var(--color-blue);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.img-zoom-prev:hover,
+.img-zoom-next:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.img-zoom-prev {
+  left: 2rem;
+}
+.img-zoom-next {
+  right: 2rem;
+}
+.img-zoom-prev svg,
+.img-zoom-next svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.img-zoom-prev svg {
+  transform: scaleX(-1);
+}
+.img-zoom-counter {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  z-index: 2002;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* Keep the floating back button under the zoomed image */
 body.img-zoom-open .back-button-float {
   opacity: 0;

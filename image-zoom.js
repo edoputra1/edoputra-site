@@ -10,16 +10,64 @@
 // from the same frame instead of restarting (a clone would reload from the
 // start). Its tile keeps its size via aspect-ratio, so nothing shifts. Videos
 // stay muted.
+//
+// Groups (optional): images with the same data-zoom-group get previous/next
+// arrows and ←/→ keys while zoomed, in data-zoom-order order (used for case
+// studies, so you can step through every image without closing).
 window.imageZoom = (() => {
   const desktopMq = window.matchMedia('(min-width: 769px) and (hover: hover)');
   const DURATION = 300; // ms, keep in sync with .img-zoom-* transitions
   const MARGIN = 40; // px around the zoomed image
+  const NAV_MARGIN = 104; // px left/right when prev/next arrows are showing
   const SCROLL_KEYS = [' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'];
   const ZOOM_SELECTOR = '[data-zoom]';
 
   let overlay = null;
-  let current = null; // { source, zoomed, home } (home: where a lifted video goes back to)
+  let nav = null; // { root, prev, next, counter }
+  let current = null; // { source, zoomed, home, group } (home: where a lifted video goes back to)
   let settling = false; // true while the close animation finishes
+
+  const CHEVRON = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+
+  function getNav() {
+    if (!nav) {
+      const root = document.createElement('div');
+      root.className = 'img-zoom-nav';
+      root.innerHTML = `
+        <button type="button" class="img-zoom-prev" aria-label="Previous image">${CHEVRON}</button>
+        <button type="button" class="img-zoom-next" aria-label="Next image">${CHEVRON}</button>
+        <div class="img-zoom-counter" aria-live="polite"></div>`;
+      document.body.appendChild(root);
+      nav = {
+        root,
+        prev: root.querySelector('.img-zoom-prev'),
+        next: root.querySelector('.img-zoom-next'),
+        counter: root.querySelector('.img-zoom-counter'),
+      };
+      nav.prev.addEventListener('click', () => go(-1));
+      nav.next.addEventListener('click', () => go(1));
+    }
+    return nav;
+  }
+
+  // The images in the same group as `source`, in reading order (or null)
+  function groupOf(source) {
+    const name = source.dataset.zoomGroup;
+    if (!name || source.tagName === 'VIDEO') return null;
+    const members = [...document.querySelectorAll(`img[data-zoom-group="${name}"]:not(.img-zoom-clone)`)]
+      .sort((a, b) => Number(a.dataset.zoomOrder) - Number(b.dataset.zoomOrder));
+    return members.length > 1 ? members : null;
+  }
+
+  function updateNav() {
+    const { root, counter } = getNav();
+    const group = current && current.group;
+    document.body.classList.toggle('img-zoom-has-nav', !!group);
+    root.hidden = !group;
+    if (group) counter.textContent = `${group.indexOf(current.source) + 1} / ${group.length}`;
+  }
 
   function getOverlay() {
     if (!overlay) {
@@ -31,11 +79,11 @@ window.imageZoom = (() => {
     return overlay;
   }
 
-  function targetTransform(rect, el) {
+  function targetTransform(rect, el, marginX = MARGIN) {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     // Fit inside the screen, but never past the image/video's own resolution
-    const maxW = Math.min(vw - MARGIN * 2, el.naturalWidth || el.videoWidth || Infinity);
+    const maxW = Math.min(vw - marginX * 2, el.naturalWidth || el.videoWidth || Infinity);
     const maxH = Math.min(vh - MARGIN * 2, el.naturalHeight || el.videoHeight || Infinity);
     const scale = Math.max(1, Math.min(maxW / rect.width, maxH / rect.height));
     const dx = vw / 2 - (rect.left + rect.width / 2);
@@ -52,7 +100,8 @@ window.imageZoom = (() => {
     });
   }
 
-  function open(source) {
+  // instant: show already centred (used when stepping to the next image)
+  function open(source, { instant = false } = {}) {
     if (current || settling || !desktopMq.matches) return;
     const rect = source.getBoundingClientRect();
     const isVideo = source.tagName === 'VIDEO';
@@ -69,20 +118,42 @@ window.imageZoom = (() => {
       zoomed.play().catch(() => {});
     } else {
       zoomed = source.cloneNode();
-      ['tabindex', 'role', 'aria-label', 'data-zoom', 'loading'].forEach((attr) => zoomed.removeAttribute(attr));
+      ['tabindex', 'role', 'aria-label', 'data-zoom', 'data-zoom-group', 'data-zoom-order', 'loading']
+        .forEach((attr) => zoomed.removeAttribute(attr));
       zoomed.className = 'img-zoom-clone';
       placeAt(zoomed, rect);
       document.body.appendChild(zoomed);
       source.style.visibility = 'hidden';
     }
-    current = { source, zoomed, home };
+    const group = groupOf(source);
+    current = { source, zoomed, home, group };
 
     const backdrop = getOverlay();
+    if (instant) {
+      zoomed.style.transition = 'none';
+      zoomed.classList.add('is-stepped');
+    }
     // Force a layout so the starting position is committed before animating
     void zoomed.offsetWidth;
     document.body.classList.add('img-zoom-open');
     backdrop.classList.add('is-open');
-    zoomed.style.transform = targetTransform(rect, source);
+    zoomed.style.transform = targetTransform(rect, source, group ? NAV_MARGIN : MARGIN);
+    if (instant) {
+      void zoomed.offsetWidth;
+      zoomed.style.transition = '';
+    }
+    updateNav();
+  }
+
+  // Step to the previous/next image in the group without closing
+  function go(delta) {
+    if (!current || !current.group || settling) return;
+    const { group, source, zoomed } = current;
+    const target = group[(group.indexOf(source) + delta + group.length) % group.length];
+    source.style.visibility = '';
+    zoomed.remove();
+    current = null;
+    open(target, { instant: true });
   }
 
   function close() {
@@ -90,6 +161,7 @@ window.imageZoom = (() => {
     const { source, zoomed, home } = current;
     current = null;
     settling = true;
+    updateNav();
     document.body.classList.remove('img-zoom-open');
     overlay.classList.remove('is-open');
     zoomed.style.transform = '';
@@ -121,6 +193,8 @@ window.imageZoom = (() => {
   document.addEventListener('keydown', (e) => {
     if (current) {
       if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
       if (SCROLL_KEYS.includes(e.key)) e.preventDefault();
       return;
     }

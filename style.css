@@ -21,7 +21,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 html {
-  font-size: 15px;
+  font-size: 14px;
 }
 @media (max-width: 1680px) {html {font-size: 12px;}}
 @media (max-width: 1440px) {html {font-size: 10px;}}
@@ -464,7 +464,7 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
   margin-bottom: 3rem;
@@ -1339,4 +1339,215 @@ body.showreel-modal-open {
     top: 1rem;
     left: 1rem;
   }
+}
+
+/* --- Homepage: selected work + latest journal (filled in by script.js) --- */
+.home-feed-heading {
+  margin-top: 5rem;
+}
+/* The dot pattern already adds the space above "Latest journal" */
+.pattern-area + .home-feed-heading {
+  margin-top: 0;
+}
+
+/* Keep the work + journal column within one screen height so it can stack */
+.home-feed {
+  margin-bottom: 0;
+}
+.home-feed .pattern-area {
+  margin: 3rem 0;
+}
+.home-feed .pattern-frame {
+  height: 8rem;
+}
+
+.home-work-list,
+.home-journal-list {
+  display: flex;
+  flex-direction: column;
+  break-inside: avoid;
+}
+
+/* Project row: title, summary, tags. On desktop a preview of the cover
+   follows the cursor while hovering (see .work-preview, driven by script.js). */
+.home-work-item {
+  position: relative;
+  display: block;
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+  text-decoration: none;
+}
+.home-work-item:first-child {
+  padding-top: 0.5rem;
+}
+
+.home-work-title {
+  display: block;
+  font-size: 3rem; /* same as the section h2 (.text-medium) */
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s ease;
+}
+.home-work-item:hover .home-work-title {
+  color: var(--color-cyan);
+}
+
+.home-work-summary {
+  display: block;
+  font-size: 1.5rem; /* same as Professional Highlights (.text-body) */
+  line-height: 1.6;
+  color: var(--color-white);
+  margin-bottom: 0;
+}
+
+/* Blue line that sweeps in along the bottom border on hover, same as the
+   Professional Highlights list (.text-body ul li::after) */
+.home-work-item::after,
+.home-journal-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-blue);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.home-work-item:hover::after,
+.home-work-item:focus-visible::after,
+.home-journal-item:hover::after,
+.home-journal-item:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Endless image strip under each project (built by buildMarquee in script.js).
+   The track holds two identical halves and slides left by exactly one half. */
+.home-work-marquee {
+  --marquee-gap: 12px;
+  position: relative;
+  display: block;
+  height: 9rem;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  /* Fade out at both ends into the page background */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 15%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 15%, #000 85%, transparent 100%);
+}
+
+.home-work-marquee-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: home-work-marquee linear infinite;
+  will-change: transform;
+}
+
+.home-work-marquee-track img {
+  display: block;
+  flex-shrink: 0;
+  height: 100%;
+  width: auto;
+  margin-right: var(--marquee-gap);
+  border-radius: 2px;
+}
+
+@keyframes home-work-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Alternate direction per project: 1st left, 2nd right, 3rd left, and so on.
+   Reversed, the track slides from -50% back to 0, which is just as seamless. */
+.home-work-item:nth-child(even) .home-work-marquee-track {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-work-marquee-track {
+    animation: none;
+  }
+}
+
+/* Cover preview that trails the cursor over a project row */
+.work-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1500;
+  width: 22rem;
+  pointer-events: none;
+  will-change: transform;
+}
+.work-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.work-preview.is-visible img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.home-journal-item {
+  position: relative;
+  display: block;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.home-journal-item:first-child {
+  padding-top: 0.5rem;
+}
+.home-journal-item:hover {
+  color: var(--color-cyan);
+}
+
+.home-journal-date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.home-journal-title {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1.3;
+}
+
+.home-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--color-white);
+  text-decoration: none;
+}
+/* arrow-right.svg as a mask, so it takes the text colour */
+.home-more::after {
+  content: "";
+  width: 1.1em;
+  height: 1.1em;
+  background-color: currentColor;
+  -webkit-mask: url('/assets/img/arrow-right.svg') center / contain no-repeat;
+  mask: url('/assets/img/arrow-right.svg') center / contain no-repeat;
+  transition: transform 0.2s ease;
+}
+.home-more:hover::after {
+  transform: translateX(0.3em);
 }

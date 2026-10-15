@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "mobily",
+    "title": "Mobily: The Process",
+    "description": "I rarely work on illustration-related projects, but when I read the briefing from Mobily, the opportunity seemed too good to miss.",
+    "tags": [
+      "Illustration",
+      "Editorial design"
+    ],
+    "cover": "cover.jpg",
+    "width": 2000,
+    "height": 1280,
+    "v": "a29be8b0",
+    "strip": [
+      {
+        "file": "thumbs/mobily-image-01.webp",
+        "width": 320,
+        "height": 320,
+        "v": "34a05e00"
+      },
+      {
+        "file": "thumbs/mobily-image-02.webp",
+        "width": 256,
+        "height": 320,
+        "v": "6109aeef"
+      },
+      {
+        "file": "thumbs/mobily-image-03.webp",
+        "width": 256,
+        "height": 320,
+        "v": "cb9bb6ef"
+      },
+      {
+        "file": "thumbs/mobily-image-04.webp",
+        "width": 256,
+        "height": 320,
+        "v": "457721a6"
+      },
+      {
+        "file": "thumbs/mobily-image-05.webp",
+        "width": 256,
+        "height": 320,
+        "v": "6162a7b0"
+      }
+    ]
+  },
+  {
+    "slug": "kitajaga",
+    "title": "Kitajaga",
+    "description": "Started as a weekend hackathon project in July 2021 during the nationwide lockdown, we created an app that became a lifeline for Malaysian people.",
+    "tags": [
+      "Product design",
+      "Brand identity"
+    ],
+    "cover": "cover.jpg",
+    "width": 2000,
+    "height": 1280,
+    "v": "1c13b396",
+    "strip": [
+      {
+        "file": "thumbs/kitajaga-image-01.webp",
+        "width": 256,
+        "height": 320,
+        "v": "00a67d2f"
+      },
+      {
+        "file": "thumbs/kitajaga-image-02.webp",
+        "width": 256,
+        "height": 320,
+        "v": "166623fa"
+      },
+      {
+        "file": "thumbs/kitajaga-image-02a.webp",
+        "width": 320,
+        "height": 320,
+        "v": "a712db86"
+      },
+      {
+        "file": "thumbs/kitajaga-image-03.webp",
+        "width": 256,
+        "height": 320,
+        "v": "6327b9b7"
+      },
+      {
+        "file": "thumbs/kitajaga-image-04.webp",
+        "width": 256,
+        "height": 320,
+        "v": "8bafeb86"
+      }
+    ]
+  }
+]

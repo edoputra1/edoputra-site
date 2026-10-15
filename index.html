@@ -132,6 +132,9 @@
       
       <div class="button-wrap">
         <div class="nav-item">
+          <a href="/work/" class="nav-link nav-animated">Work</a>
+        </div>
+        <div class="nav-item">
           <a href="/journal/" class="nav-link nav-animated">Journal</a>
         </div>
         <div class="nav-item">
@@ -147,15 +150,30 @@
         </div>
       </div>
 
+      <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
+    </div>
+
+    <!-- Selected work + latest journal (filled in by script.js from work/works.json and journals/journals.json) -->
+    <div class="section-break force-column home-feed">
+      <h3 class="text-section">Selected work</h3>
+      <div class="home-work-list" id="home-work-list"></div>
+      <a href="/work/" class="home-more">View all work</a>
+
       <div class="pattern-area">
         <div class="pattern-frame">
           <div class="dot-pattern"></div>
         </div>
       </div>
+
+      <h3 class="text-section home-feed-heading">Latest journal</h3>
+      <div class="home-journal-list" id="home-journal-list"></div>
+      <a href="/journal/" class="home-more">All journal entries</a>
       <div class="mobile-spacer spacer-small" aria-hidden="true"></div>
     </div>
 
-    
+    <!-- Empty column break -->
+    <div class="section-break force-column"></div>
+
     <div class="section-break force-column">
       <div class="skill-showcase-area">
         <div class="skill-card active">

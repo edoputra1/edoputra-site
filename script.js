@@ -181,6 +181,205 @@ if ('ResizeObserver' in window) {
   }).observe(document.querySelector('.content-wrapper') || document.body);
 }
 
+// --- Homepage feed: first 2 projects (work/works.json) and latest 2 journal
+// entries (journals/journals.json). Both lists are always checked fresh. ---
+document.addEventListener('DOMContentLoaded', () => {
+  const workList = document.getElementById('home-work-list');
+  const journalList = document.getElementById('home-journal-list');
+  const HOME_WORKS = 2;
+  const HOME_ENTRIES = 2;
+
+  const works = workList
+    ? fetch('/work/works.json', { cache: 'no-cache' })
+      .then((res) => res.json())
+      .then((items) => {
+        items.filter((w) => !w.draft).slice(0, HOME_WORKS).forEach((work) => {
+          const item = document.createElement('a');
+          item.className = 'home-work-item';
+          item.href = work.link || `/work/${work.slug}/`;
+          if (work.link) {
+            item.target = '_blank';
+            item.rel = 'noopener noreferrer';
+          }
+          // Cover preview that follows the cursor on hover (see setupWorkPreview)
+          if (work.cover) item.dataset.cover = `/work/${work.slug}/${work.cover}?v=${work.v}`;
+
+          const title = document.createElement('span');
+          title.className = 'home-work-title';
+          title.textContent = work.title;
+          item.appendChild(title);
+
+          if (work.description) {
+            const summary = document.createElement('span');
+            summary.className = 'home-work-summary';
+            summary.textContent = work.description;
+            item.appendChild(summary);
+          }
+
+          workList.appendChild(item);
+          // Endless strip of the project's images (thumbnails from build-work.js)
+          if (work.strip && work.strip.length) {
+            const marquee = buildMarquee(work);
+            item.appendChild(marquee);
+            marquee.fill(); // needs to be on the page to know its size
+          }
+        });
+      })
+      .catch((err) => console.error('Failed to load work:', err))
+    : Promise.resolve();
+
+  const entries = journalList
+    ? fetch('/journals/journals.json', { cache: 'no-cache' })
+      .then((res) => res.json())
+      .then((items) => {
+        items
+          .filter((p) => !p.draft)
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .slice(0, HOME_ENTRIES)
+          .forEach((post) => {
+            const item = document.createElement('a');
+            item.className = 'home-journal-item';
+            item.href = `/journal/#${post.slug}`;
+
+            const date = document.createElement('span');
+            date.className = 'home-journal-date';
+            date.textContent = new Date(post.date + 'T00:00:00')
+              .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            item.appendChild(date);
+
+            const title = document.createElement('span');
+            title.className = 'home-journal-title';
+            title.textContent = post.title;
+            item.appendChild(title);
+
+            journalList.appendChild(item);
+          });
+      })
+      .catch((err) => console.error('Failed to load journal:', err))
+    : Promise.resolve();
+
+  // The column just got taller, so re-check which columns can stack
+  Promise.all([works, entries]).then(() => {
+    pinnedColumn.measure();
+    setupWorkPreview(workList);
+  });
+});
+
+// --- Project image marquee on the homepage ---
+// Two identical halves slide left by exactly one half, so the loop is seamless.
+// Each half repeats the project's images until it's at least as wide as the
+// row, so there's never a gap however wide the column is. Spacing sits on each
+// image (margin-right) rather than as a flex gap, so a half is exactly 50%.
+const MARQUEE_SPEED = 55; // px per second
+
+function buildMarquee(work) {
+  const marquee = document.createElement('span');
+  marquee.className = 'home-work-marquee';
+  marquee.setAttribute('aria-hidden', 'true');
+  const track = document.createElement('span');
+  track.className = 'home-work-marquee-track';
+  marquee.appendChild(track);
+
+  function fill() {
+    const height = marquee.clientHeight;
+    const space = parseFloat(getComputedStyle(marquee).getPropertyValue('--marquee-gap')) || 12;
+    const setWidth = work.strip.reduce((sum, s) => sum + height * (s.width / s.height) + space, 0);
+    if (!height || !setWidth) return;
+    const copies = Math.max(1, Math.ceil(marquee.clientWidth / setWidth));
+    const half = [];
+    for (let c = 0; c < copies; c++) half.push(...work.strip);
+
+    track.replaceChildren(...[...half, ...half].map((s) => {
+      const img = document.createElement('img');
+      img.src = `/work/${work.slug}/${s.file}?v=${s.v}`;
+      img.alt = '';
+      img.width = s.width;
+      img.height = s.height;
+      img.decoding = 'async';
+      return img;
+    }));
+    track.style.animationDuration = `${(setWidth * copies) / MARQUEE_SPEED}s`;
+  }
+
+  // Filled by the caller once it's on the page, and again when the size changes
+  marquee.fill = fill;
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fill, 200);
+  });
+  return marquee;
+}
+
+// --- Cover preview that trails the cursor over homepage project rows ---
+// Desktop with a mouse only. One preview element follows the pointer with a
+// little easing and swaps to the hovered project's cover; it sits to the
+// bottom-right of the cursor and flips sides near the screen edges.
+function setupWorkPreview(list) {
+  if (!list || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const items = [...list.querySelectorAll('.home-work-item[data-cover]')];
+  if (!items.length) return;
+
+  const OFFSET = 24; // px between cursor and preview
+  const EASE = 0.18; // how quickly the preview catches up (0-1)
+  const preview = document.createElement('div');
+  preview.className = 'work-preview';
+  preview.setAttribute('aria-hidden', 'true');
+  const img = document.createElement('img');
+  img.alt = '';
+  preview.appendChild(img);
+  document.body.appendChild(preview); // outside the pinned columns, so position: fixed works
+
+  // Warm the cache so covers appear instantly on hover
+  items.forEach((item) => { new Image().src = item.dataset.cover; });
+
+  let target = { x: 0, y: 0 };
+  let pos = { x: 0, y: 0 };
+  let active = false;
+  let frame = null;
+
+  function aim(e) {
+    const w = preview.offsetWidth;
+    const h = preview.offsetHeight;
+    let x = e.clientX + OFFSET;
+    let y = e.clientY + OFFSET;
+    if (x + w > window.innerWidth - 16) x = e.clientX - w - OFFSET;
+    if (y + h > window.innerHeight - 16) y = Math.max(16, window.innerHeight - h - 16);
+    target = { x, y };
+  }
+
+  function tick() {
+    pos.x += (target.x - pos.x) * EASE;
+    pos.y += (target.y - pos.y) * EASE;
+    preview.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+    const settled = Math.abs(target.x - pos.x) < 0.5 && Math.abs(target.y - pos.y) < 0.5;
+    frame = active || !settled ? requestAnimationFrame(tick) : null;
+  }
+
+  function show(item, e) {
+    if (img.getAttribute('src') !== item.dataset.cover) img.src = item.dataset.cover;
+    aim(e);
+    if (!active) pos = { ...target }; // appear at the cursor, don't fly in
+    active = true;
+    preview.classList.add('is-visible');
+    if (!frame) frame = requestAnimationFrame(tick);
+  }
+
+  function hide() {
+    active = false;
+    preview.classList.remove('is-visible');
+  }
+
+  items.forEach((item) => {
+    item.addEventListener('mouseenter', (e) => show(item, e));
+    item.addEventListener('mousemove', (e) => (active ? aim(e) : show(item, e)));
+    item.addEventListener('mouseleave', hide);
+  });
+  // Scrolling moves the rows away from the cursor, so hide until the next hover
+  if (typeof lenis !== 'undefined' && lenis) lenis.on('scroll', hide);
+  window.addEventListener('scroll', hide, { passive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // Force video autoplay on mobile

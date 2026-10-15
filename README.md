@@ -53,6 +53,27 @@ open http://localhost:8000
 
 Re-running the build script keeps your order and hidden flags.
 
+## Work (case studies)
+
+Each project is a folder in `work/`. The folder name becomes the URL: `work/air-selangor/` is `edoputra.com/work/air-selangor/`.
+
+1. Create the folder with:
+   - `index.md`: the case study in markdown. Images can sit next to it and be referenced by name, e.g. `![Dashboard](dashboard.webp)`.
+     - An image on its own line (blank lines around it) stays in the text column.
+     - Images on consecutive lines (no blank line between them) become a wide 2-column staggered gallery.
+     - While zoomed (desktop), ←/→ or the on-screen arrows step through every image in the case study.
+   - `cover.jpg` (or `.png` / `.webp`): used on `/work/`, behind the title on homepage hover, and as the share preview.
+2. Run `node build-work.js`. New projects are added to the bottom of `work/works.json`, and a page is generated for every project.
+3. Edit `work/works.json`:
+   - `title`, `description`, `tags`,
+   - order: the first 2 projects show on the homepage, all of them on `/work/`,
+   - optional `"link": "https://..."` to link somewhere else instead of a case study page (e.g. the portfolio PDF),
+   - optional `"draft": true` to keep a project off the site.
+   - optional `"marquee": ["a.webp", "b.webp", ...]` to choose the images in the homepage strip (by default it uses the first 5 images in `index.md`; small thumbnails are generated into `work/<slug>/thumbs/` automatically).
+4. Run `node build-work.js` again (it regenerates the pages from your edits), then `git push`.
+
+Don't edit the generated `work/<slug>/index.html` files by hand; they're overwritten on every build.
+
 ## Project Structure
 
 ```

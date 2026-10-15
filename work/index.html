@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Work — Edo Putra</title>
+
+  <meta name="description" content="Selected product design work and case studies by Edo Putra.">
+
+  <link rel="icon" href="/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="/assets/favicons/apple-touch-icon.png">
+
+  <meta property="og:title" content="Work — Edo Putra">
+  <meta property="og:description" content="Selected product design work and case studies.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edoputra.com/work/">
+  <meta property="og:image" content="https://edoputra.com/assets/og/preview.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Work — Edo Putra">
+  <meta name="twitter:description" content="Selected product design work and case studies.">
+  <meta name="twitter:image" content="https://edoputra.com/assets/og/preview.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap">
+  </noscript>
+
+  <link rel="preload" href="/style.css" as="style">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/work-style.css">
+</head>
+
+<body class="work-index">
+  <a href="/" class="back-button-float" aria-label="Back to home"></a>
+
+  <main>
+    <!-- Text column: same 720px width as a journal entry -->
+    <header class="work-container">
+      <h1 class="text-large"><span class="hero-mark">Work<svg class="hero-dot"
+            viewBox="0 0 10 10" aria-hidden="true">
+            <circle cx="5" cy="5" r="5" />
+          </svg></span></h1>
+      <div class="work-meta" id="works-meta" aria-live="polite"></div>
+      <div class="divider"></div>
+
+      <p class="work-intro work-intro--lead">Selected projects, from early research and flows to shipped, production-ready product.</p>
+    </header>
+
+    <!-- Staggered grid: 2 columns, up to 1280px wide -->
+    <div id="works" class="works"></div>
+  </main>
+
+  <script src="/work-script.js" defer></script>
+</body>
+
+</html>
