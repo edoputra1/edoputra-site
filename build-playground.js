@@ -2,16 +2,20 @@
 
 // Syncs playground/shots.json with the images and videos in playground/shots/.
 //
-//   node build-playground.js
+//   node build-playground.js            new shots go to the top
+//   node build-playground.js --bottom   new shots go to the bottom
 //
 // - New images are added to the top of the list (newest file first), with
 //   their width/height read from the file so the grid never jumps on load.
 //   Supported: PNG, JPG, WebP, GIF, and MP4 (muted looping video).
 // - Images you deleted are removed from the list.
 // - Anything you edited by hand (order, "hidden": true) is kept.
+// - Each entry gets a "v" fingerprint of the file's contents, so replacing a
+//   file under the same name shows the new version without clearing caches.
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 // --- Config ---
 const SHOTS_DIR = path.join(__dirname, 'playground', 'shots');
@@ -149,6 +153,7 @@ const fileSet = new Set(files);
 
 // --- Keep only the fields the page uses (drops old title/caption fields) ---
 shots = shots.map(({ file, width, height, hidden }) => (hidden ? { file, width, height, hidden } : { file, width, height }));
+// (the "v" fingerprint is recalculated below for every shot)
 
 // --- Drop entries whose image is gone ---
 const removed = shots.filter((s) => !fileSet.has(s.file)).map((s) => s.file);
@@ -161,7 +166,8 @@ shots.forEach((shot) => {
   if (size) Object.assign(shot, size);
 });
 
-// --- Add new images at the top, newest file first ---
+// --- Add new images (newest file first) at the top, or the bottom with --bottom ---
+const atBottom = process.argv.includes('--bottom');
 const known = new Set(shots.map((s) => s.file));
 const added = files
   .filter((f) => !known.has(f))
@@ -176,7 +182,14 @@ const added = files
     return { file, ...size };
   })
   .filter(Boolean);
-shots = [...added, ...shots];
+shots = atBottom ? [...shots, ...added] : [...added, ...shots];
+
+// --- Fingerprint each file's contents ("v"), used in its URL so a replaced
+// file (same name, new content) is never served from an old cache ---
+shots.forEach((shot) => {
+  const data = fs.readFileSync(path.join(SHOTS_DIR, shot.file));
+  shot.v = crypto.createHash('md5').update(data).digest('hex').slice(0, 8);
+});
 
 // --- Size warnings ---
 shots.forEach((shot) => {

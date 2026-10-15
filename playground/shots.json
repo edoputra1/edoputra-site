@@ -2,106 +2,175 @@
   {
     "file": "eot.mp4",
     "width": 1318,
-    "height": 720
+    "height": 720,
+    "v": "3bb216c6"
   },
   {
     "file": "braun.mp4",
     "width": 1080,
-    "height": 1080
+    "height": 1080,
+    "v": "4bc395db"
   },
   {
     "file": "chaos.png",
     "width": 1440,
-    "height": 1600
+    "height": 1600,
+    "v": "64962324"
   },
   {
     "file": "lindwurm.jpg",
     "width": 1200,
-    "height": 1600
+    "height": 1600,
+    "v": "f6ef917f"
   },
   {
     "file": "arise.png",
     "width": 1280,
-    "height": 800
+    "height": 800,
+    "v": "32b50e87"
   },
   {
     "file": "astray.png",
     "width": 1080,
-    "height": 1920
+    "height": 1920,
+    "v": "dda335c2"
   },
   {
     "file": "levatio.png",
     "width": 1185,
-    "height": 2000
+    "height": 2000,
+    "v": "c2e307ab"
   },
   {
     "file": "caltex.mp4",
     "width": 656,
-    "height": 1080
+    "height": 1080,
+    "v": "73d02406"
   },
   {
     "file": "post-sprint.png",
     "width": 969,
-    "height": 1138
+    "height": 1138,
+    "v": "b9bb0a69"
   },
   {
     "file": "planters.jpg",
     "width": 750,
-    "height": 1334
+    "height": 1334,
+    "v": "f1b993c8"
   },
   {
     "file": "treehouse.png",
     "width": 1680,
-    "height": 2080
+    "height": 2080,
+    "v": "b17a13ce"
   },
   {
     "file": "astray-sit.jpg",
     "width": 1080,
-    "height": 1428
+    "height": 1428,
+    "v": "69467235"
   },
   {
     "file": "poster.jpg",
     "width": 1200,
-    "height": 1600
+    "height": 1600,
+    "v": "1a7ef7dc"
   },
   {
     "file": "gen-z-clock.mp4",
     "width": 1080,
-    "height": 1080
+    "height": 1080,
+    "v": "0129981b"
   },
   {
     "file": "night.png",
     "width": 1080,
-    "height": 1080
+    "height": 1080,
+    "v": "c89a9dc4"
   },
   {
     "file": "tw.png",
     "width": 1920,
-    "height": 1080
+    "height": 1080,
+    "v": "a7264427"
   },
   {
     "file": "exp-mapping.png",
-    "width": 750,
-    "height": 1220
+    "width": 1080,
+    "height": 1350,
+    "v": "ea1d2b6d"
   },
   {
     "file": "shubhat.jpg",
     "width": 750,
-    "height": 1334
+    "height": 1334,
+    "v": "5117450a"
   },
   {
     "file": "untitled-grotesk-arab.png",
     "width": 1500,
-    "height": 1334
+    "height": 1334,
+    "v": "2e0f93fb"
   },
   {
     "file": "eqt.png",
     "width": 1500,
-    "height": 1334
+    "height": 1334,
+    "v": "af703733"
   },
   {
     "file": "indonesia.mp4",
     "width": 670,
-    "height": 1080
+    "height": 1080,
+    "v": "528310c9"
+  },
+  {
+    "file": "cidb.mp4",
+    "width": 1960,
+    "height": 1080,
+    "v": "4a1e250e"
+  },
+  {
+    "file": "shape-sprouts.png",
+    "width": 2000,
+    "height": 1200,
+    "v": "7ed625e2"
+  },
+  {
+    "file": "babyboss.jpg",
+    "width": 600,
+    "height": 1149,
+    "v": "397dd0f3"
+  },
+  {
+    "file": "bts.png",
+    "width": 1080,
+    "height": 1350,
+    "v": "0bae63da"
+  },
+  {
+    "file": "munajat.mp4",
+    "width": 1090,
+    "height": 718,
+    "v": "77d92390"
+  },
+  {
+    "file": "rosary.png",
+    "width": 948,
+    "height": 1600,
+    "v": "64035bc1"
+  },
+  {
+    "file": "arc-type.png",
+    "width": 1600,
+    "height": 1600,
+    "v": "761be221"
+  },
+  {
+    "file": "asthu.png",
+    "width": 1600,
+    "height": 1124,
+    "v": "5e7a3718"
   }
 ]

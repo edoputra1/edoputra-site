@@ -98,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
     frame.className = 'shot-frame';
     frame.style.aspectRatio = `${shot.width} / ${shot.height}`;
 
-    const src = SHOTS_DIR + encodeURIComponent(shot.file);
+    // ?v= changes whenever the file's contents change, so caches never show an old version
+    const src = SHOTS_DIR + encodeURIComponent(shot.file) + (shot.v ? `?v=${shot.v}` : '');
     const media = VIDEO_EXT.test(shot.file) ? buildVideo(src, frame) : buildImage(src, shot, frame);
 
     frame.appendChild(media);
@@ -128,7 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.replaceChildren(...columns.map((c) => c.el));
   }
 
-  fetch('/playground/shots.json')
+  // no-cache: always check for a newer list (cheap; usually a 304 "not modified")
+  fetch('/playground/shots.json', { cache: 'no-cache' })
     .then((res) => res.json())
     .then((shots) => {
       const visible = shots.filter((s) => !s.hidden && s.width && s.height);
