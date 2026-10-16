@@ -1220,41 +1220,16 @@ body.showreel-modal-open {
         transparent 4px);
   }
 
+  /* Mobile font sizes live in mobile-type.css */
   .text-large {
-    font-size: 5rem;
     margin-bottom: 3rem;
   }
-  .text-medium {
-    font-size: 3rem;
-  }
   .text-body {
-    font-size: 1.6rem;
     margin-bottom: 2rem;
-  }
-  .text-body.emphasis {
-    font-size: 2.5rem;
-  }
-  .text-section {
-    font-size: 1.5rem;
-  }
-  .text-small {
-    font-size: 1.3rem;
-  }
-  .text-footer {
-    font-size: 0.9rem;
-  }
-  .marquee .client-name {
-    font-size: 3rem;
-  }
-  .marquee .client-region {
-    font-size: 1.2rem;
   }
   .marquee .sep {
     width: 3rem;
     height: 3rem;
-  }
-  .nav-link {
-    font-size: 2.4rem;
   }
   .nav-animated .nav-chevron {
     width: 1.5rem;

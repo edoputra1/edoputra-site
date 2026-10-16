@@ -393,25 +393,11 @@ body.post-reader .sidebar-fixed {
     padding-top: 5rem;
   }
 
-  .post-item-title {
-    font-size: 2.5rem;
-  }
-
-   .post-date {
-    font-size: 1.25rem;
-  }
-
-  .post-item .text-tag {
-    font-size: 0.875rem;
-    padding: 0.75rem 0.75rem;
-  }
+  /* Mobile font sizes live in mobile-type.css */
 
   body.post-reader {
     padding: 0;
   }
 
-  .post-reader-title {
-    font-size: 3.5rem;
-  }
 
 }

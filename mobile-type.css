@@ -1,0 +1,105 @@
+/* --- Mobile type scale (phones, ≤768px) ---
+   One shared scale for every page, in px so it doesn't depend on each page's
+   root font size (the homepage root shrinks to 8px for the desktop layout, the
+   inner pages use 14px on mobile). Load this file last on every page.
+   Desktop sizes are unchanged; they live in the page stylesheets.
+
+   Display  40  page titles
+   Heading  26  statements, project/card titles, nav, client names
+   Title    22  journal entry titles (homepage + journal list)
+   Lead     20  emphasis paragraphs, page intros, case study summaries
+   Body     17  paragraphs, lists, summaries
+   Small    15  skill cards, secondary text
+   Label 14-15  mono: section headings, dates, counters, links, buttons
+   Micro 11-12  mono: tags, regions, footer */
+
+@media (max-width: 768px) {
+  /* Display */
+  .text-large,
+  .post-reader-title {
+    font-size: 40px;
+    line-height: 1.08;
+  }
+
+  /* Heading */
+  .text-medium,
+  .home-work-title,
+  .work-card-title,
+  .nav-link,
+  .marquee .client-name,
+  .post-reader-content h1 {
+    font-size: 26px;
+    line-height: 1.25;
+  }
+
+  /* Title */
+  .post-item-title,
+  .home-journal-title {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  /* Body */
+  .text-body,
+  .post-reader-content p,
+  .post-reader-content ul,
+  .post-reader-content ol,
+  .home-work-summary,
+  .work-card-description,
+  .playground-intro {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* Lead (after Body, so it wins on elements that have both classes) */
+  .text-body.emphasis,
+  h2.text-body,
+  .post-reader-content p.emphasis,
+  .playground-intro.playground-intro--lead,
+  .work-intro--lead,
+  .work-page-description {
+    font-size: 20px;
+    line-height: 1.45;
+  }
+
+  /* Small */
+  .text-small,
+  .skill-desc,
+  .skill-header .text-small,
+  .post-reader-content blockquote p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Label (mono) */
+  .text-section,
+  .post-reader-content h2,
+  .post-reader-content h3,
+  .post-date,
+  .post-reader-date,
+  .home-journal-date,
+  .playground-meta,
+  .work-meta,
+  .home-more {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Button label (mono) */
+  .cta-button {
+    font-size: 15px;
+  }
+
+  /* Micro (mono) */
+  .text-tag,
+  .post-item .text-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  .marquee .client-region,
+  .showreel-title,
+  .text-footer,
+  .text-summary-area {
+    font-size: 12px;
+  }
+}

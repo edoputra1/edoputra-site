@@ -229,6 +229,7 @@ function projectPage(work) {
   <link rel="stylesheet" href="/journal-style.css">
   <link rel="stylesheet" href="/work-style.css">
   <link rel="stylesheet" href="/image-zoom.css">
+  <link rel="stylesheet" href="/mobile-type.css">
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 </head>

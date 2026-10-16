@@ -198,13 +198,7 @@ body.work-index {
     padding: 5rem 3rem 2rem;
   }
 
-  .work-container .text-large {
-    font-size: 3.5rem;
-  }
-
-  .work-intro--lead {
-    font-size: 1.6rem;
-  }
+  /* Mobile font sizes live in mobile-type.css */
 
   .works {
     padding: 1rem 1.5rem 6rem;
@@ -215,9 +209,6 @@ body.work-index {
     gap: 3rem;
   }
 
-  .work-card-title {
-    font-size: 2rem;
-  }
 }
 
 /* Case study galleries: images on consecutive lines in index.md become a wide

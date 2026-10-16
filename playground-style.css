@@ -105,13 +105,7 @@ body.playground {
     padding: 5rem 3rem 2rem;
   }
 
-  .playground-container .text-large {
-    font-size: 3.5rem;
-  }
-
-  .playground-intro--lead {
-    font-size: 1.6rem;
-  }
+  /* Mobile font sizes live in mobile-type.css */
 
   .shots {
     padding: 1rem 1.5rem 6rem;
