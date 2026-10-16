@@ -181,13 +181,13 @@ if ('ResizeObserver' in window) {
   }).observe(document.querySelector('.content-wrapper') || document.body);
 }
 
-// --- Homepage feed: first 2 projects (work/works.json) and latest 2 journal
+// --- Homepage feed: first 3 projects (work/works.json) and latest 3 journal
 // entries (journals/journals.json). Both lists are always checked fresh. ---
 document.addEventListener('DOMContentLoaded', () => {
   const workList = document.getElementById('home-work-list');
   const journalList = document.getElementById('home-journal-list');
-  const HOME_WORKS = 2;
-  const HOME_ENTRIES = 2;
+  const HOME_WORKS = 3;
+  const HOME_ENTRIES = 3;
 
   const works = workList
     ? fetch('/work/works.json', { cache: 'no-cache' })

@@ -44,24 +44,17 @@ body.work-index {
   color: var(--color-white);
 }
 
-/* Staggered grid: columns are built by work-script.js, which places each card
-   in the currently shortest column so the order reads left to right */
+/* Plain 2-column grid: cards read left to right, row by row, in works.json
+   order (covers are all landscape, so rows line up) */
 .works {
-  display: flex;
-  align-items: flex-start;
-  gap: 4rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 5rem 4rem;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem 5rem 10rem;
   box-sizing: content-box;
-}
-
-.works-col {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
 }
 
 .work-card {
@@ -201,11 +194,8 @@ body.work-index {
   /* Mobile font sizes live in mobile-type.css */
 
   .works {
+    grid-template-columns: minmax(0, 1fr);
     padding: 1rem 1.5rem 6rem;
-    gap: 3rem;
-  }
-
-  .works-col {
     gap: 3rem;
   }
 

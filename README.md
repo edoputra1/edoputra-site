@@ -63,10 +63,10 @@ Each project is a folder in `work/`. The folder name becomes the URL: `work/air-
      - Images on consecutive lines (no blank line between them) become a wide 2-column staggered gallery.
      - While zoomed (desktop), ←/→ or the on-screen arrows step through every image in the case study.
    - `cover.jpg` (or `.png` / `.webp`): used on `/work/`, behind the title on homepage hover, and as the share preview.
-2. Run `node build-work.js`. New projects are added to the bottom of `work/works.json`, and a page is generated for every project.
+2. Run `node build-work.js`. New projects are added to the top of `work/works.json` (newest first), and a page is generated for every project.
 3. Edit `work/works.json`:
    - `title`, `description`, `tags`,
-   - order: the first 2 projects show on the homepage, all of them on `/work/`,
+   - order: the first 3 projects show on the homepage, all of them on `/work/`,
    - optional `"link": "https://..."` to link somewhere else instead of a case study page (e.g. the portfolio PDF),
    - optional `"draft": true` to keep a project off the site.
    - optional `"marquee": ["a.webp", "b.webp", ...]` to choose the images in the homepage strip (by default it uses the first 5 images in `index.md`; small thumbnails are generated into `work/<slug>/thumbs/` automatically).

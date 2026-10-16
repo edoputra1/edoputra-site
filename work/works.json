@@ -1,46 +1,46 @@
 [
   {
-    "slug": "mobily",
-    "title": "Mobily: The Process",
-    "description": "I rarely work on illustration-related projects, but when I read the briefing from Mobily, the opportunity seemed too good to miss.",
+    "slug": "paynet",
+    "title": "PayNet: One Stop Portal",
+    "description": "Redesigned PayNet’s One Stop Portal, a critical enterprise dashboard that allows banks to monitor transactions, service availability, and incidents across Malaysia’s national payment network.",
     "tags": [
-      "Illustration",
-      "Editorial design"
+      "Product design",
+      "Enterprise dashboard"
     ],
     "cover": "cover.jpg",
     "width": 2000,
     "height": 1280,
-    "v": "a29be8b0",
+    "v": "40ad8998",
     "strip": [
       {
-        "file": "thumbs/mobily-image-01.webp",
+        "file": "thumbs/paynet-image-01.webp",
         "width": 320,
         "height": 320,
-        "v": "34a05e00"
+        "v": "4533d193"
       },
       {
-        "file": "thumbs/mobily-image-02.webp",
-        "width": 256,
+        "file": "thumbs/paynet-image-07.webp",
+        "width": 346,
         "height": 320,
-        "v": "6109aeef"
+        "v": "1ab2c5d3"
       },
       {
-        "file": "thumbs/mobily-image-03.webp",
-        "width": 256,
+        "file": "thumbs/paynet-image-8.webp",
+        "width": 320,
         "height": 320,
-        "v": "cb9bb6ef"
+        "v": "e5489e43"
       },
       {
-        "file": "thumbs/mobily-image-04.webp",
-        "width": 256,
+        "file": "thumbs/paynet-image-9.webp",
+        "width": 240,
         "height": 320,
-        "v": "457721a6"
+        "v": "283977fa"
       },
       {
-        "file": "thumbs/mobily-image-05.webp",
-        "width": 256,
+        "file": "thumbs/paynet-image-10.webp",
+        "width": 320,
         "height": 320,
-        "v": "6162a7b0"
+        "v": "765143aa"
       }
     ]
   },
@@ -86,6 +86,51 @@
         "width": 256,
         "height": 320,
         "v": "8bafeb86"
+      }
+    ]
+  },
+  {
+    "slug": "mobily",
+    "title": "Mobily: The Process",
+    "description": "I rarely work on illustration-related projects, but when I read the briefing from Mobily, the opportunity seemed too good to miss.",
+    "tags": [
+      "Illustration",
+      "Editorial design"
+    ],
+    "cover": "cover.jpg",
+    "width": 2000,
+    "height": 1280,
+    "v": "a29be8b0",
+    "strip": [
+      {
+        "file": "thumbs/mobily-image-01.webp",
+        "width": 320,
+        "height": 320,
+        "v": "34a05e00"
+      },
+      {
+        "file": "thumbs/mobily-image-02.webp",
+        "width": 256,
+        "height": 320,
+        "v": "6109aeef"
+      },
+      {
+        "file": "thumbs/mobily-image-03.webp",
+        "width": 256,
+        "height": 320,
+        "v": "cb9bb6ef"
+      },
+      {
+        "file": "thumbs/mobily-image-04.webp",
+        "width": 256,
+        "height": 320,
+        "v": "457721a6"
+      },
+      {
+        "file": "thumbs/mobily-image-05.webp",
+        "width": 256,
+        "height": 320,
+        "v": "6162a7b0"
       }
     ]
   }

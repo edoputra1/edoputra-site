@@ -12,7 +12,8 @@
 //                   (any of cover.jpg / cover.jpeg / cover.png / cover.webp)
 //
 // The script:
-// - adds new project folders to the bottom of work/works.json (title from the folder name),
+// - adds new project folders to the top of work/works.json, so the newest project
+//   comes first on the homepage and /work/ (title from the folder name),
 // - removes entries whose folder is gone,
 // - keeps what you edited by hand: order, title, description, tags, link, draft,
 // - reads the cover's size and fingerprint,
@@ -94,7 +95,7 @@ function marqueeStrip(slug, picks) {
   if (!HAS_CWEBP && sources.length) {
     warnings.push(`cwebp not found, so ${slug}'s marquee uses full-size images (install with: brew install webp).`);
   }
-  if (HAS_CWEBP && !fs.existsSync(thumbsDir)) fs.mkdirSync(thumbsDir);
+  if (HAS_CWEBP && sources.length && !fs.existsSync(thumbsDir)) fs.mkdirSync(thumbsDir);
 
   const strip = sources.map((file) => {
     if (!HAS_CWEBP) return { file, ...imageSize(path.join(dir, file)) };
@@ -135,13 +136,13 @@ const folders = fs.readdirSync(WORK_DIR, { withFileTypes: true })
   .map((d) => d.name);
 const folderSet = new Set(folders);
 
-// --- Drop entries whose folder is gone; add new folders at the bottom ---
+// --- Drop entries whose folder is gone; add new folders at the top (newest first) ---
 const removed = works.filter((w) => !folderSet.has(w.slug)).map((w) => w.slug);
 works = works.filter((w) => folderSet.has(w.slug));
 const known = new Set(works.map((w) => w.slug));
 const added = folders.filter((slug) => !known.has(slug)).sort();
 added.forEach((slug) => {
-  works.push({ slug, title: titleFromSlug(slug), description: '', tags: [] });
+  works.unshift({ slug, title: titleFromSlug(slug), description: '', tags: [] });
 });
 
 // --- Cover size + fingerprint ---

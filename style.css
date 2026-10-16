@@ -1316,6 +1316,19 @@ body.showreel-modal-open {
   }
 }
 
+/* Hidden on screen, still read by screen readers and search engines */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 /* --- Homepage: selected work + latest journal (filled in by script.js) --- */
 .home-feed-heading {
   margin-top: 5rem;
@@ -1336,25 +1349,42 @@ body.showreel-modal-open {
   height: 8rem;
 }
 
+/* The lists may flow into the next column between items (never inside one),
+   and each heading stays with the first item below it */
 .home-work-list,
 .home-journal-list {
-  display: flex;
-  flex-direction: column;
+  display: block; /* plain blocks, so row margins are dropped at column breaks */
+}
+
+.home-work-item,
+.home-journal-item {
   break-inside: avoid;
+}
+
+.home-feed .text-section {
+  break-after: avoid;
+}
+
+/* …and each "View all" link stays with the last item above it */
+.home-feed .home-more {
+  break-before: avoid;
 }
 
 /* Project row: title, summary, tags. On desktop a preview of the cover
    follows the cursor while hovering (see .work-preview, driven by script.js). */
+/* Space above a row is a margin, not padding: browsers drop margins at the
+   top of a new column, so a row that starts a column sits flush at the top */
 .home-work-item {
   position: relative;
   display: block;
-  padding: 3rem 0;
+  margin-top: 3rem;
+  padding: 0 0 3rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--color-white);
   text-decoration: none;
 }
 .home-work-item:first-child {
-  padding-top: 0.5rem;
+  margin-top: 0;
 }
 
 .home-work-title {
@@ -1476,14 +1506,15 @@ body.showreel-modal-open {
 .home-journal-item {
   position: relative;
   display: block;
-  padding: 1.25rem 0;
+  margin-top: 1.25rem;
+  padding: 0 0 1.25rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--color-white);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 .home-journal-item:first-child {
-  padding-top: 0.5rem;
+  margin-top: 0;
 }
 .home-journal-item:hover {
   color: var(--color-cyan);
@@ -1504,7 +1535,8 @@ body.showreel-modal-open {
 }
 
 .home-more {
-  display: inline-flex;
+  display: flex; /* block-level, so break-before: avoid applies */
+  width: fit-content;
   align-items: center;
   gap: 0.6rem;
   margin-top: 1.5rem;

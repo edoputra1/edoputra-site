@@ -1,4 +1,4 @@
-// Work section: the /work/ staggered grid, and the case study content on
+// Work section: the /work/ grid, and the case study content on
 // /work/<slug>/ pages. Projects are listed in /work/works.json, which
 // `node build-work.js` keeps in sync with the project folders.
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,7 +32,7 @@ function watchImage(img, frame) {
   }
 }
 
-// --- /work/: 2-column staggered grid of project cards ---
+// --- /work/: 2-column grid of project cards ---
 function renderGrid(grid) {
   if (!grid) return;
 
@@ -88,27 +88,8 @@ function renderGrid(grid) {
     return card;
   }
 
-  let cards = [];
-  let currentCols = 0;
-
-  // Each card goes into the currently shortest column (measured, since cards
-  // have text under the cover), so the order reads left to right
-  function layout() {
-    const cols = grid.clientWidth > 640 ? 2 : 1;
-    if (cols === currentCols) return;
-    currentCols = cols;
-    const columns = Array.from({ length: cols }, () => {
-      const col = document.createElement('div');
-      col.className = 'works-col';
-      return col;
-    });
-    grid.replaceChildren(...columns);
-    cards.forEach((card) => {
-      const shortest = columns.reduce((a, b) => (b.offsetHeight < a.offsetHeight ? b : a));
-      shortest.appendChild(card);
-    });
-  }
-
+  // A plain 2-column grid (1 on phones, in CSS): cards read left to right,
+  // row by row, in works.json order
   fetch('/work/works.json', { cache: 'no-cache' })
     .then((res) => res.json())
     .then((works) => {
@@ -119,14 +100,7 @@ function renderGrid(grid) {
           ? `${visible.length} project${visible.length === 1 ? '' : 's'}`
           : 'Case studies coming soon.';
       }
-      cards = visible.map(buildCard);
-      layout();
-
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(layout, 150);
-      });
+      grid.replaceChildren(...visible.map(buildCard));
     })
     .catch((err) => console.error('Failed to load work:', err));
 }
